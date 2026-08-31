@@ -1,0 +1,8 @@
+{
+  "name": "AI Organizational Diagnostic Platform",
+  "description": "ارزیابی بلوغ هوش مصنوعی سازمانی وتدوین نقشه راه عملیاتی برای تحول دیجیتال شرکت",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
