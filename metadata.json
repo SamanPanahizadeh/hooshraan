@@ -1,6 +1,6 @@
 {
   "name": "AI Organizational Diagnostic Platform",
-  "description": "ارزیابی بلوغ هوش مصنوعی سازمانی وتدوین نقشه راه عملیاتی برای تحول دیجیتال شرکت",
+  "description": "هوشران | پلتفرم آموزش هوش مصنوعی سازمانی و تحول دیجیتال",
   "requestFramePermissions": [],
   "majorCapabilities": [
     "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
