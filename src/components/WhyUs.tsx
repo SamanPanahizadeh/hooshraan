@@ -157,40 +157,9 @@ export const WhyUs: React.FC<WhyUsProps> = ({
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8 lg:pt-10 pb-10 sm:pb-16 text-slate-900 overflow-hidden" dir="rtl">
       
       {/* =========================================================================
-          SECTION 01 — HERO (MINIMAL, B2B, EDITORIAL)
-         ========================================================================= */}
-      <section className="relative pt-3 pb-8 sm:pt-4 sm:pb-12 lg:pt-6 lg:pb-16">
-        <RevealOnScroll>
-          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-b from-white via-slate-50/80 to-white border border-slate-200/90 shadow-[0_12px_40px_rgba(0,0,0,0.04)] p-8 sm:p-14 lg:p-20 text-center">
-            
-            {/* Background Grid Pattern */}
-            <div className="absolute inset-0 bg-[linear-gradient(to_right,#e2e8f030_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f030_1px,transparent_1px)] bg-[size:3rem_3rem] pointer-events-none" />
-            
-            {/* Soft Ambient Glow */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-blue-50/60 rounded-full blur-3xl pointer-events-none -z-0" />
-
-            <div className="max-w-4xl mx-auto space-y-8 relative z-10">
-
-              {/* Primary Title */}
-              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-[#141b2b] tracking-tight leading-[1.25] text-balance">
-                ما AI را به <span className="text-blue-600 relative inline-block">
-                  کار واقعی
-                  <span className="absolute bottom-1 left-0 right-0 h-3 bg-blue-100/70 -z-10 rounded-sm" />
-                </span> شما متصل می‌کنیم.
-              </h1>
-
-            </div>
-          </div>
-        </RevealOnScroll>
-      </section>
-
-      {/* Subtle Section Divider */}
-      <div className="w-full max-w-xs mx-auto border-t border-slate-200/80 my-4" />
-
-      {/* =========================================================================
           SECTION 02 — تفاوت اصلی ما (VISUAL COMPARISON)
          ========================================================================= */}
-      <section className="py-16 sm:py-24 space-y-12">
+      <section className="py-8 sm:py-16 space-y-12">
         
         {/* Section Header */}
         <RevealOnScroll>
