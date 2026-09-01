@@ -188,7 +188,7 @@ export default function App() {
                 {/* Email Link */}
                 <a
                   id="contact-email-link"
-                  href="mailto:saman.panahizadeh@gmail.com"
+                  href="mailto:info@houshraan.ir"
                   className="inline-flex items-center justify-center gap-2 bg-[#f9f9ff] hover:bg-white text-slate-700 hover:text-rose-600 border border-slate-200 hover:border-rose-300 px-3 py-1.5 rounded-xl text-xs font-medium transition-all duration-200 shadow-sm group"
                   dir="ltr"
                   title="ارسال ایمیل"
@@ -196,7 +196,7 @@ export default function App() {
                   <div className="w-5 h-5 rounded-lg bg-rose-50 flex items-center justify-center text-rose-600 group-hover:bg-rose-600 group-hover:text-white transition-colors">
                     <Mail className="w-3.5 h-3.5" />
                   </div>
-                  <span className="font-sans text-[11.5px]">saman.panahizadeh@gmail.com</span>
+                  <span className="font-sans text-[11.5px]">info@houshraan.ir</span>
                 </a>
 
                 {/* LinkedIn Link */}
