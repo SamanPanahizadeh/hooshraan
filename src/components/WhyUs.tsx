@@ -154,17 +154,17 @@ export const WhyUs: React.FC<WhyUsProps> = ({
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8 lg:pt-10 pb-10 sm:pb-16 text-slate-900 overflow-hidden" dir="rtl">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 sm:pt-14 lg:pt-20 pb-10 sm:pb-16 text-slate-900 overflow-hidden" dir="rtl">
       
       {/* =========================================================================
           SECTION 02 — تفاوت اصلی ما (VISUAL COMPARISON)
          ========================================================================= */}
-      <section className="py-8 sm:py-16 space-y-12">
+      <section className="pt-4 sm:pt-8 pb-12 sm:pb-20 space-y-12">
         
         {/* Section Header */}
         <RevealOnScroll>
-          <div className="max-w-3xl space-y-4">
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#141b2b] leading-snug">
+          <div className="max-w-3xl space-y-4 mb-4 sm:mb-6">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#141b2b] leading-snug text-justify mb-2 sm:mb-4">
               ما AI را بر اساس ابزار آموزش نمی‌دهیم؛ بر اساس <span className="text-blue-600">کاری که شما انجام می‌دهید</span> آموزش می‌دهیم.
             </h2>
           </div>
