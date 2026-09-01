@@ -39,20 +39,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   totalModulesCount,
 }) => {
   const [bottomMenuOpen, setBottomMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
   const navRef = useRef<HTMLDivElement>(null);
-
-  // Scroll listener to detect when user scrolls down
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY;
-      setIsScrolled(scrollPosition > 35);
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll(); // Initial check
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   const navGroups: NavGroup[] = [
     {
@@ -153,70 +140,59 @@ export const Navbar: React.FC<NavbarProps> = ({
   return (
     <>
       {/* =======================================================================
-          TOP STICKY HEADER & INTEGRATED NAVIGATION BAR (ثابت در بالای صفحه برای موبایل، تبلت و دسکتاپ)
+          TOP STICKY HEADER & INTEGRATED NAVIGATION BAR (ثابت در بالای صفحه با شتاب‌دهنده سخت‌افزاری)
          ======================================================================= */}
       <header 
         ref={navRef}
         id="main-sticky-navigation-header" 
-        className={`sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 text-[#141b2b] transition-all duration-300 ${
-          isScrolled ? 'shadow-sm' : 'shadow-2xs'
-        }`} 
+        className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/80 text-[#141b2b] shadow-xs transform-gpu will-change-transform" 
         dir="rtl"
+        style={{ transform: 'translate3d(0, 0, 0)', backfaceVisibility: 'hidden' }}
       >
-        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-2 sm:py-2.5 flex items-center justify-between gap-3">
           
-          {/* Collapsible Brand Title (هیدن شدن عنوان در زمان اسکرول) */}
+          {/* Brand Logo */}
           <div 
-            className={`transition-all duration-300 ease-in-out overflow-hidden flex items-center justify-center border-b border-slate-100/80 ${
-              isScrolled 
-                ? 'max-h-0 opacity-0 py-0 border-transparent pointer-events-none' 
-                : 'max-h-24 opacity-100 py-2.5 sm:py-3'
-            }`}
+            className="flex items-center cursor-pointer group select-none shrink-0" 
+            onClick={() => handleSelectTab('dashboard')}
           >
-            <div 
-              className="flex items-center justify-center text-center cursor-pointer group select-none" 
+            <HoushranEmblem className="h-9 sm:h-10 md:h-11 w-auto" alt="لوگوی رسمی هوشران" />
+          </div>
+
+          {/* Persistent Fixed Navigation Bar */}
+          <nav 
+            id="top-nav-tabs-container"
+            className="w-full max-w-xs sm:max-w-md bg-slate-100/80 p-1 sm:p-1.5 rounded-2xl border border-slate-200/70 shadow-xs flex items-center justify-between gap-1 sm:gap-1.5"
+            aria-label="منوی اصلی"
+          >
+            {/* Tab 1: صفحه اصلی */}
+            <button
+              id="top-nav-home"
               onClick={() => handleSelectTab('dashboard')}
+              className={`flex-1 flex items-center justify-center gap-1.5 sm:gap-2 py-1.5 sm:py-2 px-2 sm:px-4 rounded-xl text-xs sm:text-sm font-bold transition-all duration-200 ${
+                activeTab === 'dashboard'
+                  ? 'bg-white text-[#0066ff] shadow-xs border border-slate-200/60 font-black'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
+              }`}
             >
-              <HoushranEmblem className="h-10 sm:h-11 md:h-12 w-auto" alt="لوگوی رسمی هوشران" />
-            </div>
-          </div>
+              <Home className={`w-4 h-4 sm:w-4.5 sm:h-4.5 shrink-0 transition-colors ${activeTab === 'dashboard' ? 'text-[#0066ff]' : 'text-slate-400'}`} />
+              <span className="whitespace-nowrap">صفحه اصلی</span>
+            </button>
 
-          {/* Persistent Fixed Navigation Bar (نمایش در موبایل، تبلت و تمام اسکرین‌سایزها) */}
-          <div className="py-2 sm:py-2.5 flex justify-center">
-            <nav 
-              id="top-nav-tabs-container"
-              className="w-full max-w-xl bg-slate-100/80 p-1 sm:p-1.5 rounded-2xl border border-slate-200/70 shadow-xs flex items-center justify-between gap-1 sm:gap-1.5"
-              aria-label="منوی اصلی"
+            {/* Tab 2: ارزیابی سازمانی */}
+            <button
+              id="top-nav-diagnostic"
+              onClick={() => handleSelectTab('diagnostic')}
+              className={`flex-1 flex items-center justify-center gap-1.5 sm:gap-2 py-1.5 sm:py-2 px-2 sm:px-4 rounded-xl text-xs sm:text-sm font-bold transition-all duration-200 ${
+                activeTab === 'diagnostic'
+                  ? 'bg-white text-indigo-700 shadow-xs border border-indigo-100 font-black'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
+              }`}
             >
-              {/* Tab 1: صفحه اصلی */}
-              <button
-                id="top-nav-home"
-                onClick={() => handleSelectTab('dashboard')}
-                className={`flex-1 flex items-center justify-center gap-1.5 sm:gap-2 py-2 sm:py-2.5 px-2 sm:px-4 rounded-xl text-xs sm:text-sm font-bold transition-all duration-200 ${
-                  activeTab === 'dashboard'
-                    ? 'bg-white text-[#0066ff] shadow-xs border border-slate-200/60 font-black'
-                    : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
-                }`}
-              >
-                <Home className={`w-4 h-4 sm:w-4.5 sm:h-4.5 shrink-0 transition-colors ${activeTab === 'dashboard' ? 'text-[#0066ff]' : 'text-slate-400'}`} />
-                <span className="whitespace-nowrap">صفحه اصلی</span>
-              </button>
-
-              {/* Tab 2: ارزیابی سازمانی */}
-              <button
-                id="top-nav-diagnostic"
-                onClick={() => handleSelectTab('diagnostic')}
-                className={`flex-1 flex items-center justify-center gap-1.5 sm:gap-2 py-2 sm:py-2.5 px-2 sm:px-4 rounded-xl text-xs sm:text-sm font-bold transition-all duration-200 ${
-                  activeTab === 'diagnostic'
-                    ? 'bg-white text-indigo-700 shadow-xs border border-indigo-100 font-black'
-                    : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
-                }`}
-              >
-                <Building2 className={`w-4 h-4 sm:w-4.5 sm:h-4.5 shrink-0 transition-colors ${activeTab === 'diagnostic' ? 'text-indigo-600' : 'text-slate-400'}`} />
-                <span className="whitespace-nowrap">ارزیابی سازمانی</span>
-              </button>
-            </nav>
-          </div>
+              <Building2 className={`w-4 h-4 sm:w-4.5 sm:h-4.5 shrink-0 transition-colors ${activeTab === 'diagnostic' ? 'text-indigo-600' : 'text-slate-400'}`} />
+              <span className="whitespace-nowrap">ارزیابی سازمانی</span>
+            </button>
+          </nav>
 
         </div>
       </header>
