@@ -4,7 +4,7 @@ import {
   Briefcase, Building2, ChevronLeft, Sparkles, Compass, ShieldCheck, 
   Search, Send, MessageSquare, Database, ArrowDown, CheckCircle2,
   Cpu, Award, BarChart3, TrendingUp, HelpCircle, FileText, CheckCheck,
-  Zap, Clock, Scale, Eye, Sliders, LineChart
+  Zap, Clock, Scale, Eye, Sliders, LineChart, Rocket
 } from 'lucide-react';
 
 interface WhyUsSectionProps {
@@ -82,6 +82,9 @@ export const WhyUsSection: React.FC<WhyUsSectionProps> = ({ onNavigate }) => {
          ========================================================================= */}
       <section className="relative overflow-hidden rounded-3xl bg-gradient-to-b from-white via-slate-50/50 to-white border border-slate-200/90 shadow-[0_8px_30px_rgb(0,0,0,0.04)] p-8 sm:p-12 lg:p-16">
         
+        {/* Ambient Radial Background Glow */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-violet-600/10 blur-[120px] rounded-full pointer-events-none -z-0" />
+
         {/* Subtle Architectural Grid Background Accent */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#e2e8f015_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f015_1px,transparent_1px)] bg-[size:3rem_3rem] pointer-events-none" />
         
@@ -118,15 +121,15 @@ export const WhyUsSection: React.FC<WhyUsSectionProps> = ({ onNavigate }) => {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 pt-2">
             <button
               onClick={scrollToGateways}
-              className="w-full sm:w-auto px-7 py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm rounded-xl transition shadow-md shadow-blue-500/20 flex items-center justify-center gap-2"
+              className="w-full sm:w-auto px-7 py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm rounded-xl transition shadow-lg shadow-blue-500/25 hover:shadow-blue-500/35 flex items-center justify-center gap-2 group/btn"
             >
               <span>مسیر مناسب خود را پیدا کنید</span>
-              <ArrowDown className="w-4 h-4" />
+              <ArrowDown className="w-4 h-4 group-hover/btn:translate-y-0.5 transition-transform" />
             </button>
 
             <button
               onClick={scrollToMethodology}
-              className="w-full sm:w-auto px-7 py-3.5 bg-white hover:bg-slate-50 text-slate-800 font-bold text-sm rounded-xl border border-slate-200 transition shadow-xs flex items-center justify-center gap-2"
+              className="w-full sm:w-auto px-7 py-3.5 bg-white/80 hover:bg-white text-slate-800 font-bold text-sm rounded-xl border border-slate-200/90 backdrop-blur-sm transition shadow-xs flex items-center justify-center gap-2 hover:border-slate-300"
             >
               <span>روش ما را ببینید</span>
               <ChevronLeft className="w-4 h-4 text-slate-400" />
@@ -971,91 +974,97 @@ export const WhyUsSection: React.FC<WhyUsSectionProps> = ({ onNavigate }) => {
       {/* =========================================================================
           SECTION 09 — FINAL CTA (GO TO LEARNING / DIAGNOSTIC)
          ========================================================================= */}
-      <section id="main-portals-section" className="bg-white rounded-3xl border-2 border-slate-200 p-8 sm:p-12 space-y-8 scroll-mt-20">
+      <section id="main-portals-section" className="relative bg-slate-950/80 backdrop-blur-xl rounded-3xl border border-white/10 p-8 sm:p-14 space-y-16 sm:space-y-20 scroll-mt-20 overflow-hidden shadow-2xl">
         
+        {/* Ambient Radial Background Glow */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] sm:w-[900px] h-[550px] bg-violet-600/10 blur-[120px] rounded-full pointer-events-none -z-0" />
+
         {/* Header */}
-        <div className="text-center max-w-2xl mx-auto space-y-2">
-          <span className="text-xs font-bold text-blue-600 uppercase tracking-wider">شروع مسیر تحول هوش مصنوعی</span>
-          <h2 className="text-2xl sm:text-3xl font-black text-[#141b2b]">
+        <div className="text-center max-w-3xl mx-auto space-y-4 mb-16 sm:mb-20 relative z-10">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-violet-500/10 text-violet-300 border border-violet-500/20 text-xs font-black tracking-wider uppercase shadow-xs">
+            <Rocket className="w-3.5 h-3.5 text-violet-400" />
+            <span>شروع مسیر تحول هوش مصنوعی</span>
+          </div>
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white tracking-tight">
             AI در کدام بخش از کار شما می‌تواند بیشترین ارزش را ایجاد کند؟
           </h2>
-          <p className="text-xs sm:text-sm text-slate-600">
+          <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
             بر اساس نیاز خود یا سازمان‌تان، یکی از گزینه‌های زیر را انتخاب نمایید:
           </p>
         </div>
 
         {/* 3 Interactive Pathway Options */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 relative z-10">
           
           {/* Option 1: For Individuals / Professionals */}
-          <div className="bg-[#f9f9ff] rounded-2xl border border-blue-200/90 p-6 flex flex-col justify-between space-y-4 hover:border-blue-600 hover:shadow-md transition-all group">
-            <div className="space-y-3">
-              <div className="w-12 h-12 rounded-xl bg-blue-600 text-white flex items-center justify-center shadow-md shadow-blue-500/20">
+          <div className="bg-slate-900/40 backdrop-blur-lg rounded-3xl border border-white/10 p-7 sm:p-8 flex flex-col justify-between space-y-6 transition-all duration-300 hover:-translate-y-1.5 hover:border-violet-500/30 hover:shadow-xl hover:shadow-violet-500/10 group">
+            <div className="space-y-4">
+              <div className="w-12 h-12 rounded-2xl bg-blue-500/20 text-blue-400 border border-blue-500/30 flex items-center justify-center group-hover:scale-105 group-hover:bg-blue-600 group-hover:text-white transition-all duration-300 shadow-sm">
                 <Users className="w-6 h-6" />
               </div>
-              <div>
-                <span className="text-[11px] font-bold text-blue-600">مسیر یادگیری فردی و مهارتی</span>
-                <h3 className="text-base font-black text-slate-900 mt-0.5">برای مدیران و کارشناسان</h3>
+              <div className="space-y-1.5">
+                <span className="text-xs font-bold text-blue-400">مسیر یادگیری فردی و مهارتی</span>
+                <h3 className="text-xl font-black text-white">برای مدیران و کارشناسان</h3>
               </div>
-              <p className="text-xs text-slate-600 leading-relaxed text-justify">
+              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed text-justify">
                 مشاهده سرفصل‌های ۸‌گانه، کار با ۴ شبیه‌ساز عملی (تحقیق، پیام‌نویسی، مذاکره، CRM) و دریافت کتابخانه پرامپت‌ها.
               </p>
             </div>
 
             <button
               onClick={() => onNavigate('sales-hub')}
-              className="w-full py-3 px-4 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-xl transition flex items-center justify-center gap-2 shadow-xs group-hover:gap-3"
+              className="w-full py-3.5 px-5 bg-white/10 hover:bg-white/15 text-white border border-white/15 backdrop-blur-md font-bold text-xs rounded-xl transition shadow-xs hover:border-white/25 flex items-center justify-center gap-2 group/btn"
             >
               <span>مسیر یادگیری خود را ببینید</span>
-              <ArrowLeft className="w-3.5 h-3.5" />
+              <ArrowLeft className="w-4 h-4 group-hover/btn:-translate-x-1 transition-transform" />
             </button>
           </div>
 
           {/* Option 2: For Organizations & HR */}
-          <div className="bg-[#f9f9ff] rounded-2xl border border-indigo-200/90 p-6 flex flex-col justify-between space-y-4 hover:border-indigo-600 hover:shadow-md transition-all group">
-            <div className="space-y-3">
-              <div className="w-12 h-12 rounded-xl bg-indigo-600 text-white flex items-center justify-center shadow-md shadow-indigo-500/20">
+          <div className="bg-slate-900/40 backdrop-blur-lg rounded-3xl border border-white/10 p-7 sm:p-8 flex flex-col justify-between space-y-6 transition-all duration-300 hover:-translate-y-1.5 hover:border-violet-500/30 hover:shadow-xl hover:shadow-violet-500/10 group">
+            <div className="space-y-4">
+              <div className="w-12 h-12 rounded-2xl bg-indigo-500/20 text-indigo-400 border border-indigo-500/30 flex items-center justify-center group-hover:scale-105 group-hover:bg-indigo-600 group-hover:text-white transition-all duration-300 shadow-sm">
                 <Building2 className="w-6 h-6" />
               </div>
-              <div>
-                <span className="text-[11px] font-bold text-indigo-600">برنامه آموزش و توسعه سازمانی</span>
-                <h3 className="text-base font-black text-slate-900 mt-0.5">برای سازمان‌ها و مدیران HR</h3>
+              <div className="space-y-1.5">
+                <span className="text-xs font-bold text-indigo-400">برنامه آموزش و توسعه سازمانی</span>
+                <h3 className="text-xl font-black text-white">برای سازمان‌ها و مدیران HR</h3>
               </div>
-              <p className="text-xs text-slate-600 leading-relaxed text-justify">
+              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed text-justify">
                 طراحی دوره‌های اختصاصی مبتنی بر واحدهای سازمانی، سنجش بلوغ، ایجاد استانداردهای پرامپت و بازطراحی Workflow.
               </p>
             </div>
 
             <button
               onClick={() => onNavigate('diagnostic')}
-              className="w-full py-3 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs rounded-xl transition flex items-center justify-center gap-2 shadow-xs group-hover:gap-3"
+              className="w-full py-3.5 px-5 bg-white/10 hover:bg-white/15 text-white border border-white/15 backdrop-blur-md font-bold text-xs rounded-xl transition shadow-xs hover:border-white/25 flex items-center justify-center gap-2 group/btn"
             >
               <span>مسیر AI سازمان خود را بررسی کنید</span>
-              <ArrowLeft className="w-3.5 h-3.5" />
+              <ArrowLeft className="w-4 h-4 group-hover/btn:-translate-x-1 transition-transform" />
             </button>
           </div>
 
           {/* Option 3: Initial Quick Diagnostic */}
-          <div className="bg-[#f9f9ff] rounded-2xl border border-slate-300 p-6 flex flex-col justify-between space-y-4 hover:border-slate-800 hover:shadow-md transition-all group">
-            <div className="space-y-3">
-              <div className="w-12 h-12 rounded-xl bg-slate-800 text-white flex items-center justify-center shadow-md shadow-slate-800/20">
+          <div className="bg-slate-900/40 backdrop-blur-lg rounded-3xl border border-white/10 hover:border-violet-500/40 p-7 sm:p-8 flex flex-col justify-between space-y-6 transition-all duration-300 hover:-translate-y-1.5 hover:border-violet-500/30 hover:shadow-xl hover:shadow-violet-500/10 group relative overflow-hidden">
+            <div className="space-y-4">
+              <div className="w-12 h-12 rounded-2xl bg-violet-500/20 text-violet-400 border border-violet-500/30 flex items-center justify-center group-hover:scale-105 group-hover:bg-violet-600 group-hover:text-white transition-all duration-300 shadow-sm">
                 <BarChart3 className="w-6 h-6" />
               </div>
-              <div>
-                <span className="text-[11px] font-bold text-slate-600">خودارزیابی استاندارد ۶ بعدی</span>
-                <h3 className="text-base font-black text-slate-900 mt-0.5">ارزیابی اولیه هوش مصنوعی</h3>
+              <div className="space-y-1.5">
+                <span className="text-xs font-bold text-violet-400 font-mono">AI READINESS ASSESSMENT</span>
+                <h3 className="text-xl font-black text-white">ارزیابی اولیه هوش مصنوعی</h3>
               </div>
-              <p className="text-xs text-slate-600 leading-relaxed text-justify">
+              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed text-justify">
                 سنجش سریع سطح بلوغ سازمان در برابر بنچمارک‌های صنعتی و دریافت خودکار نقشه راه اجرایی بلند مدت.
               </p>
             </div>
 
             <button
               onClick={() => onNavigate('diagnostic')}
-              className="w-full py-3 px-4 bg-slate-900 hover:bg-black text-white font-bold text-xs rounded-xl transition flex items-center justify-center gap-2 shadow-xs group-hover:gap-3"
+              className="w-full py-3.5 px-5 bg-violet-600 hover:bg-violet-500 text-white font-bold text-xs rounded-xl transition shadow-lg shadow-violet-600/30 hover:shadow-violet-500/40 flex items-center justify-center gap-2 group/btn"
             >
               <span>وضعیت فعلی خود را بسنجید</span>
-              <ArrowLeft className="w-3.5 h-3.5" />
+              <ArrowLeft className="w-4 h-4 group-hover/btn:-translate-x-1 transition-transform" />
             </button>
           </div>
 

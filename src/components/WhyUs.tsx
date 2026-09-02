@@ -1299,50 +1299,109 @@ export const WhyUs: React.FC<WhyUsProps> = ({
       {/* =========================================================================
           SECTION 09 — FINAL CTA (THREE STRATEGIC PATHWAYS)
          ========================================================================= */}
-      <section id="section-final-cta" className="py-16 sm:py-24 space-y-12 scroll-mt-24">
+      <section id="section-final-cta" className="relative py-20 sm:py-28 scroll-mt-24">
         
-        {/* Section Header */}
+        {/* Ambient Radial Background Glow with Indigo/Violet depth */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] sm:w-[1000px] h-[600px] bg-violet-600/10 blur-[120px] rounded-full pointer-events-none -z-0" />
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[300px] bg-indigo-600/10 blur-[90px] rounded-full pointer-events-none -z-0" />
+
+        {/* Section Header (Hero Texts & Subtitle with increased spacing) */}
         <RevealOnScroll>
-          <div className="text-center max-w-3xl mx-auto space-y-4">
-            <div className="inline-flex items-center gap-2 text-xs font-black text-blue-600 tracking-wider uppercase">
-              <Rocket className="w-4 h-4" />
+          <div className="text-center max-w-3xl mx-auto space-y-5 mb-20 sm:mb-24 relative z-10">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-violet-50 text-violet-700 border border-violet-200/80 text-xs font-black tracking-wider uppercase shadow-xs">
+              <Rocket className="w-3.5 h-3.5 text-violet-600" />
               <span>شروع همکاری و مسیر اقدام</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#141b2b]">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#141b2b] tracking-tight">
               AI در کدام بخش از کار شما می‌تواند بیشترین ارزش را ایجاد کند؟
             </h2>
-            <p className="text-sm sm:text-base text-slate-600">
+            <p className="text-sm sm:text-base text-slate-600 leading-relaxed max-w-xl mx-auto">
               مسیر متناسب با نیاز خود را انتخاب کنید و گام بعدی را آغاز کنید:
             </p>
           </div>
         </RevealOnScroll>
 
-        {/* Pathway Card (Diagnostic Assessment) */}
-        <div className="max-w-xl mx-auto">
-          <RevealOnScroll delay={100}>
-            <div className="h-full bg-gradient-to-br from-indigo-50/60 to-blue-50/40 rounded-3xl border-2 border-indigo-200/80 hover:border-indigo-400 p-8 space-y-6 shadow-xs hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group">
+        {/* 3 Luxury Glassmorphism Strategic Pathway Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 relative z-10">
+          
+          {/* Card 1: For Individuals & Professionals */}
+          <RevealOnScroll delay={50} className="h-full">
+            <div className="h-full bg-slate-900/40 backdrop-blur-lg border border-white/10 rounded-2xl sm:rounded-3xl p-7 sm:p-8 space-y-6 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1.5 hover:border-violet-500/30 hover:shadow-xl hover:shadow-violet-500/10 group">
               <div className="space-y-4">
-                <div className="w-12 h-12 rounded-2xl bg-indigo-100 text-indigo-700 flex items-center justify-center group-hover:bg-indigo-600 group-hover:text-white transition-all duration-300">
+                <div className="w-12 h-12 rounded-2xl bg-blue-500/20 text-blue-400 border border-blue-500/30 flex items-center justify-center group-hover:scale-105 group-hover:bg-blue-600 group-hover:text-white transition-all duration-300 shadow-sm">
+                  <Users className="w-6 h-6" />
+                </div>
+                <div className="space-y-1.5">
+                  <span className="text-xs font-bold text-blue-400">مسیر یادگیری فردی و مهارتی</span>
+                  <h3 className="text-xl font-black text-white">برای مدیران و کارشناسان</h3>
+                </div>
+                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed text-justify">
+                  مشاهده سرفصل‌های ۸‌گانه، کار با ۴ شبیه‌ساز عملی (تحقیق، پیام‌نویسی، مذاکره، CRM) و دریافت کتابخانه پرامپت‌ها.
+                </p>
+              </div>
+
+              <button
+                onClick={handleIndividualClick}
+                className="w-full py-3.5 px-5 bg-white/10 hover:bg-white/15 text-white border border-white/15 hover:border-white/25 backdrop-blur-md font-bold text-xs rounded-xl transition shadow-xs flex items-center justify-center gap-2 group/btn"
+              >
+                <span>مسیر یادگیری خود را ببینید</span>
+                <ArrowLeft className="w-4 h-4 group-hover/btn:-translate-x-1 transition-transform" />
+              </button>
+            </div>
+          </RevealOnScroll>
+
+          {/* Card 2: For Organizations & HR Leaders */}
+          <RevealOnScroll delay={100} className="h-full">
+            <div className="h-full bg-slate-900/40 backdrop-blur-lg border border-white/10 rounded-2xl sm:rounded-3xl p-7 sm:p-8 space-y-6 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1.5 hover:border-violet-500/30 hover:shadow-xl hover:shadow-violet-500/10 group">
+              <div className="space-y-4">
+                <div className="w-12 h-12 rounded-2xl bg-indigo-500/20 text-indigo-400 border border-indigo-500/30 flex items-center justify-center group-hover:scale-105 group-hover:bg-indigo-600 group-hover:text-white transition-all duration-300 shadow-sm">
+                  <Building2 className="w-6 h-6" />
+                </div>
+                <div className="space-y-1.5">
+                  <span className="text-xs font-bold text-indigo-400">برنامه آموزش و توسعه سازمانی</span>
+                  <h3 className="text-xl font-black text-white">برای سازمان‌ها و مدیران HR</h3>
+                </div>
+                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed text-justify">
+                  طراحی دوره‌های اختصاصی مبتنی بر واحدهای سازمانی، سنجش بلوغ، ایجاد استانداردهای پرامپت و بازطراحی Workflow.
+                </p>
+              </div>
+
+              <button
+                onClick={handleEnterpriseClick}
+                className="w-full py-3.5 px-5 bg-white/10 hover:bg-white/15 text-white border border-white/15 hover:border-white/25 backdrop-blur-md font-bold text-xs rounded-xl transition shadow-xs flex items-center justify-center gap-2 group/btn"
+              >
+                <span>مسیر AI سازمان خود را بررسی کنید</span>
+                <ArrowLeft className="w-4 h-4 group-hover/btn:-translate-x-1 transition-transform" />
+              </button>
+            </div>
+          </RevealOnScroll>
+
+          {/* Card 3: Diagnostic Assessment (Primary Featured Card) */}
+          <RevealOnScroll delay={150} className="h-full">
+            <div className="h-full bg-slate-900/40 backdrop-blur-lg border border-white/10 hover:border-violet-500/40 rounded-2xl sm:rounded-3xl p-7 sm:p-8 space-y-6 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1.5 hover:border-violet-500/30 hover:shadow-xl hover:shadow-violet-500/10 group relative overflow-hidden">
+              <div className="space-y-4">
+                <div className="w-12 h-12 rounded-2xl bg-violet-500/20 text-violet-400 border border-violet-500/30 flex items-center justify-center group-hover:scale-105 group-hover:bg-violet-600 group-hover:text-white transition-all duration-300 shadow-sm">
                   <BarChart3 className="w-6 h-6" />
                 </div>
-                <div className="space-y-1">
-                  <span className="text-xs font-bold text-indigo-600 font-mono">AI READINESS ASSESSMENT</span>
-                  <h3 className="text-xl font-black text-[#141b2b]">ارزیابی اولیه بلوغ (AIOD)</h3>
+                <div className="space-y-1.5">
+                  <span className="text-xs font-bold text-violet-400 font-mono">AI READINESS ASSESSMENT</span>
+                  <h3 className="text-xl font-black text-white">ارزیابی اولیه بلوغ (AIOD)</h3>
                 </div>
-                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed text-justify">
+                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed text-justify">
                   در کمتر از ۵ دقیقه سطح آمادگی سازمانی خود را در ۶ بعد کلیدی به‌صورت رایگان بسنجید.
                 </p>
               </div>
 
               <button
                 onClick={handleDiagnosticClick}
-                className="w-full py-3.5 px-5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs rounded-xl transition shadow-sm flex items-center justify-center gap-2 group/btn"
+                className="w-full py-3.5 px-5 bg-violet-600 hover:bg-violet-500 text-white font-bold text-xs rounded-xl transition shadow-lg shadow-violet-600/35 hover:shadow-violet-500/50 flex items-center justify-center gap-2 group/btn ring-2 ring-violet-400/20"
               >
                 <span>وضعیت فعلی خود را بسنجید</span>
                 <ArrowLeft className="w-4 h-4 group-hover/btn:-translate-x-1 transition-transform" />
               </button>
             </div>
           </RevealOnScroll>
+
         </div>
 
       </section>
