@@ -151,3 +151,51 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+/* ================= PRINT & PDF EXPORT STYLES ================= */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+
+  body {
+    background-color: #ffffff !important;
+    color: #0f172a !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Force background colors and gradients in print */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* When printing the luxury executive document */
+  .pdf-page {
+    width: 210mm !important;
+    min-height: 297mm !important;
+    max-height: 297mm !important;
+    page-break-after: always !important;
+    break-after: page !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Prevent page breaks inside cards and diagnostic sections */
+  .break-inside-avoid,
+  .print-avoid-break,
+  .rounded-2xl,
+  .rounded-xl {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+}
+

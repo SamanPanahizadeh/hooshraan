@@ -145,7 +145,7 @@ export const Navbar: React.FC<NavbarProps> = ({
       <header 
         ref={navRef}
         id="main-sticky-navigation-header" 
-        className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/80 text-[#141b2b] shadow-xs transform-gpu will-change-transform" 
+        className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/80 text-[#141b2b] shadow-xs transform-gpu will-change-transform print:hidden" 
         dir="rtl"
         style={{ transform: 'translate3d(0, 0, 0)', backfaceVisibility: 'hidden' }}
       >

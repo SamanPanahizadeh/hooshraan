@@ -9,6 +9,7 @@ import {
   DimensionDefV11,
 } from '../data/diagnosticDataV11';
 import { getPersianJalaliDate, toPersianDigits } from '../utils/jalaliDate';
+import { exportElementToPdf, isRunningInIframe } from '../utils/pdfExport';
 import { HoushranEmblem } from './HoushranEmblem';
 import {
   Compass,
@@ -42,7 +43,13 @@ import {
   Sliders,
   FileText,
   FileCheck,
+  Loader2,
+  ExternalLink,
+  X,
+  Eye,
+  BookOpen,
 } from 'lucide-react';
+import { ExecutiveReportPdfDocument } from './ExecutiveReportPdfDocument';
 
 interface QuestionResponseState {
   value?: number | 'NA';
@@ -222,6 +229,54 @@ export const OrganizationalDiagnostic: React.FC = () => {
 
   // Report Date in Jalali
   const reportJalaliDate = useMemo(() => getPersianJalaliDate(new Date()), []);
+
+  // Report View Mode: 'dashboard' | 'executive_doc'
+  const [reportViewMode, setReportViewMode] = useState<'dashboard' | 'executive_doc'>('dashboard');
+
+  // PDF Export & Printing State
+  const [isExportingPdf, setIsExportingPdf] = useState<boolean>(false);
+  const [pdfProgressText, setPdfProgressText] = useState<string>('');
+  const [pdfExportSuccess, setPdfExportSuccess] = useState<boolean | null>(null);
+  const [showIframePrintHelp, setShowIframePrintHelp] = useState<boolean>(false);
+
+  const handleDownloadPdf = async () => {
+    if (isExportingPdf) return;
+    setIsExportingPdf(true);
+    setPdfExportSuccess(null);
+    setPdfProgressText('در حال آماده‌سازی سند رسمی استراتژیک...');
+
+    // If currently on dashboard, ensure executive document is active & settled in DOM
+    if (reportViewMode !== 'executive_doc') {
+      setReportViewMode('executive_doc');
+      await new Promise((r) => setTimeout(r, 300));
+    }
+
+    const cleanOrgName = orgProfile.companyName.trim().replace(/[/\\?%*:|"<>]/g, '-') || 'سازمان';
+    const filename = `گزارش-استراتژیک-عارضه-یابی-هوشران-${cleanOrgName}.pdf`;
+
+    const success = await exportElementToPdf('diagnostic-luxury-executive-pdf-document', {
+      filename,
+      onProgress: (msg) => setPdfProgressText(msg),
+    });
+
+    setIsExportingPdf(false);
+    setPdfExportSuccess(success);
+    setTimeout(() => {
+      setPdfExportSuccess(null);
+      setPdfProgressText('');
+    }, 4500);
+  };
+
+  const handlePrint = () => {
+    try {
+      window.print();
+    } catch (err) {
+      console.warn('window.print() error or blocked by sandbox:', err);
+    }
+    if (isRunningInIframe()) {
+      setShowIframePrintHelp(true);
+    }
+  };
 
   // Quick Preset Test Scenarios
   const loadPresetLevel = (level: 1 | 2 | 3 | 4 | 5) => {
@@ -553,7 +608,7 @@ export const OrganizationalDiagnostic: React.FC = () => {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 font-sans text-slate-800" dir="rtl">
       
       {/* Header Banner */}
-      <div className="bg-white border border-slate-200/80 rounded-2xl p-6 sm:p-8 mb-8 shadow-sm relative overflow-hidden">
+      <div className="bg-white border border-slate-200/80 rounded-2xl p-6 sm:p-8 mb-8 shadow-sm relative overflow-hidden print:hidden">
         <div className="absolute top-0 left-0 w-2 h-full bg-[#0066ff]" />
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div className="space-y-2">
@@ -573,7 +628,7 @@ export const OrganizationalDiagnostic: React.FC = () => {
             <button
               type="button"
               onClick={resetAllResponses}
-              className="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs transition flex items-center gap-2 border border-slate-200"
+              className="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs transition flex items-center gap-2 border border-slate-200 cursor-pointer"
               title="شروع مجدد ارزیابی از ابتدا"
             >
               <RefreshCw className="w-4 h-4 text-slate-500" />
@@ -581,13 +636,36 @@ export const OrganizationalDiagnostic: React.FC = () => {
             </button>
 
             {step === 'report' && (
-              <button
-                onClick={() => window.print()}
-                className="px-4 py-2 bg-[#0066ff] hover:bg-[#0050cb] text-white font-bold rounded-xl text-xs transition shadow-sm flex items-center gap-1.5"
-              >
-                <Printer className="w-4 h-4" />
-                <span>چاپ و خروجی (PDF)</span>
-              </button>
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={handleDownloadPdf}
+                  disabled={isExportingPdf}
+                  className="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 disabled:bg-emerald-400 text-white font-bold rounded-xl text-xs transition shadow-sm flex items-center gap-2 cursor-pointer"
+                  title="دانلود مستقیم فایل PDF بدون وابستگی به پنجره چاپ مرورگر"
+                >
+                  {isExportingPdf ? (
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                  ) : pdfExportSuccess ? (
+                    <CheckCircle className="w-4 h-4 text-emerald-200" />
+                  ) : (
+                    <Download className="w-4 h-4" />
+                  )}
+                  <span>
+                    {isExportingPdf ? 'در حال ساخت PDF...' : pdfExportSuccess ? 'دانلود شد!' : 'دانلود مستقیم فایل PDF'}
+                  </span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={handlePrint}
+                  className="px-3.5 py-2.5 bg-white hover:bg-slate-100 text-slate-700 font-bold rounded-xl text-xs transition border border-slate-200 shadow-xs flex items-center gap-1.5 cursor-pointer"
+                  title="چاپ و خروجی با پرینتر مرورگر"
+                >
+                  <Printer className="w-4 h-4 text-slate-500" />
+                  <span>چاپگر</span>
+                </button>
+              </div>
             )}
           </div>
         </div>
@@ -1309,7 +1387,122 @@ export const OrganizationalDiagnostic: React.FC = () => {
 
       {/* ================= STEP 4: OFFICIAL DIAGNOSTIC REPORT ================= */}
       {step === 'report' && (
-        <div className="space-y-8 print:p-0 print:space-y-6">
+        <div className="space-y-8">
+          
+          {/* Main View Switcher Bar: Interactive Dashboard vs. Luxury 8-Page Executive PDF Report */}
+          <div className="bg-slate-900 text-white rounded-2xl p-4 sm:p-5 shadow-lg flex flex-col md:flex-row items-center justify-between gap-4 print:hidden border border-slate-800">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-[#c5a059]/20 border border-[#c5a059]/50 flex items-center justify-center text-[#c5a059] shrink-0">
+                <FileCheck className="w-5 h-5" />
+              </div>
+              <div>
+                <div className="flex items-center gap-2 flex-wrap">
+                  <h3 className="text-sm sm:text-base font-black text-white">
+                    خروجی و مستندات راهبردی هوشران (AI Strategic Report)
+                  </h3>
+                  <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#c5a059] text-slate-950 font-mono">
+                    نسخه لوکس ۸ صفحه‌ای
+                  </span>
+                </div>
+                <p className="text-xs text-slate-300 mt-0.5">
+                  گزارش استراتژیک چندصفحه‌ای سازمانی با استاندارد A4، کاور سرمه‌ای اختصاصی، شاخص‌های طلایی و هشدارهای حاکمیتی
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2 w-full md:w-auto justify-end flex-wrap">
+              <div className="bg-slate-800/90 p-1 rounded-xl flex items-center gap-1 w-full sm:w-auto border border-slate-700/60">
+                <button
+                  type="button"
+                  onClick={() => setReportViewMode('dashboard')}
+                  className={`flex-1 sm:flex-initial px-3.5 py-2 rounded-lg text-xs font-bold transition flex items-center justify-center gap-1.5 cursor-pointer ${
+                    reportViewMode === 'dashboard'
+                      ? 'bg-blue-600 text-white shadow-sm'
+                      : 'text-slate-300 hover:text-white hover:bg-slate-700/50'
+                  }`}
+                >
+                  <BarChart3 className="w-4 h-4" />
+                  <span>داشبورد تحلیلی</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setReportViewMode('executive_doc')}
+                  className={`flex-1 sm:flex-initial px-3.5 py-2 rounded-lg text-xs font-bold transition flex items-center justify-center gap-1.5 cursor-pointer ${
+                    reportViewMode === 'executive_doc'
+                      ? 'bg-[#c5a059] text-slate-950 font-black shadow-sm'
+                      : 'text-[#c5a059] hover:bg-[#c5a059]/10'
+                  }`}
+                >
+                  <BookOpen className="w-4 h-4" />
+                  <span>سند رسمی PDF (۸ صفحه)</span>
+                </button>
+              </div>
+
+              <button
+                type="button"
+                onClick={handleDownloadPdf}
+                disabled={isExportingPdf}
+                className="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 disabled:bg-emerald-400 text-white font-bold rounded-xl text-xs transition shadow-md flex items-center gap-2 cursor-pointer shrink-0"
+                title="دانلود مستقیم سند PDF لوکس با کیفیت چاپی بالا"
+              >
+                {isExportingPdf ? <Loader2 className="w-4 h-4 animate-spin" /> : <Download className="w-4 h-4" />}
+                <span>دانلود مستقیم PDF</span>
+              </button>
+            </div>
+          </div>
+
+          {/* VIEW MODE 1: EXECUTIVE 8-PAGE DOCUMENT */}
+          {reportViewMode === 'executive_doc' && (
+            <div className="space-y-6">
+              {/* Executive Document Sub-Banner Controls */}
+              <div className="bg-white border border-slate-200/80 rounded-2xl p-4 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4 print:hidden">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-amber-50 text-amber-700 flex items-center justify-center">
+                    <Award className="w-4 h-4 text-[#c5a059]" />
+                  </div>
+                  <div>
+                    <h4 className="text-xs font-bold text-slate-900">
+                      پیش‌نمایش سند رسمی A4 (طراحی‌شده بر پایه دیزاین‌سیستم اختصاصی هوشران)
+                    </h4>
+                    <p className="text-[11px] text-slate-500">
+                      کاور سرمه‌ای عمیق، فهرست مطالب شبکه‌ای، ماتریس ۷ بعد، ۵ شکاف اصلی، نقشه راه ۱۲ ماهه، تحلیل مالی و تاییدیه روش‌شناختی
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={handleDownloadPdf}
+                    disabled={isExportingPdf}
+                    className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-xs flex items-center gap-1.5 transition shadow-sm cursor-pointer"
+                  >
+                    {isExportingPdf ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Download className="w-3.5 h-3.5" />}
+                    <span>دانلود فایل PDF</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handlePrint}
+                    className="px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs flex items-center gap-1.5 transition cursor-pointer"
+                  >
+                    <Printer className="w-3.5 h-3.5 text-slate-500" />
+                    <span>چاپ مستقیم A4</span>
+                  </button>
+                </div>
+              </div>
+
+              {/* Render Luxury Document */}
+              <ExecutiveReportPdfDocument
+                orgProfile={orgProfile}
+                calculationResults={calculationResults}
+                reportJalaliDate={reportJalaliDate}
+              />
+            </div>
+          )}
+
+          {/* VIEW MODE 2: INTERACTIVE DASHBOARD */}
+          {reportViewMode === 'dashboard' && (
+            <div id="diagnostic-official-report-content" className="space-y-8 print:p-0 print:space-y-6 bg-white">
           
           {/* Official Report Title Card */}
           <div className="bg-white border border-slate-200/80 rounded-2xl p-6 sm:p-8 shadow-sm print:border-none print:shadow-none">
@@ -1453,12 +1646,21 @@ export const OrganizationalDiagnostic: React.FC = () => {
             </button>
             <button
               onClick={() => setActiveReportTab('ai_synthesis')}
-              className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 ${
+              className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shrink-0 ${
                 activeReportTab === 'ai_synthesis' ? 'bg-indigo-600 text-white' : 'bg-indigo-50 text-indigo-700 hover:bg-indigo-100'
               }`}
             >
               <Sparkles className="w-3.5 h-3.5" />
               <span>سنتز تحلیلی هوشمند (AI Analysis)</span>
+            </button>
+
+            <button
+              onClick={() => setReportViewMode('executive_doc')}
+              className="px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 bg-[#0f1c2e] text-[#c5a059] hover:bg-[#1a2e47] border border-[#c5a059]/40 shrink-0 cursor-pointer"
+              title="مشاهده سند رسمی ۸ صفحه‌ای هوشران منطبق بر دیزاین‌سیستم لوکس"
+            >
+              <Award className="w-3.5 h-3.5 text-[#c5a059]" />
+              <span>سند استراتژیک رسمی (۸ صفحه PDF)</span>
             </button>
           </div>
 
@@ -1764,22 +1966,135 @@ export const OrganizationalDiagnostic: React.FC = () => {
           )}
 
           {/* Bottom Bar Controls */}
-          <div className="flex items-center justify-between bg-white border border-slate-200/80 rounded-2xl p-4 shadow-sm print:hidden">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-white border border-slate-200/80 rounded-2xl p-4 shadow-sm print:hidden">
             <button
               onClick={() => setStep('current_assessment')}
-              className="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs transition flex items-center gap-1.5"
+              className="w-full sm:w-auto px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs transition flex items-center justify-center gap-1.5 cursor-pointer"
             >
               <ArrowRight className="w-4 h-4" />
               <span>بازبینی و ویرایش پاسخ‌ها</span>
             </button>
 
-            <div className="flex items-center gap-3">
+            <div className="w-full sm:w-auto flex items-center justify-end gap-3 flex-wrap">
               <button
-                onClick={() => window.print()}
-                className="px-5 py-2.5 bg-[#0066ff] hover:bg-[#0050cb] text-white font-bold rounded-xl text-xs transition shadow-sm flex items-center gap-2"
+                type="button"
+                onClick={handleDownloadPdf}
+                disabled={isExportingPdf}
+                className="w-full sm:w-auto px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 disabled:bg-emerald-400 text-white font-bold rounded-xl text-xs transition shadow-md shadow-emerald-600/20 flex items-center justify-center gap-2 cursor-pointer"
+                title="دانلود خودکار فایل PDF خروجی رسمی گزارش عارضه‌یابی"
               >
-                <Printer className="w-4 h-4" />
-                <span>چاپ و ذخیره PDF</span>
+                {isExportingPdf ? (
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                ) : pdfExportSuccess ? (
+                  <CheckCircle className="w-4 h-4 text-emerald-200" />
+                ) : (
+                  <Download className="w-4 h-4" />
+                )}
+                <span>
+                  {isExportingPdf
+                    ? (pdfProgressText || 'در حال ساخت فایل PDF...')
+                    : pdfExportSuccess
+                    ? 'فایل PDF با موفقیت دانلود شد'
+                    : 'دانلود مستقیم گزارش (فایل PDF)'}
+                </span>
+              </button>
+
+              <button
+                type="button"
+                onClick={handlePrint}
+                className="w-full sm:w-auto px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs transition border border-slate-300 flex items-center justify-center gap-2 cursor-pointer"
+                title="چاپ یا ذخیره از طریق پرینتر مرورگر"
+              >
+                <Printer className="w-4 h-4 text-slate-600" />
+                <span>چاپ مرورگر</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Hidden container when on dashboard to allow instant print via browser */}
+      {step === 'report' && reportViewMode !== 'executive_doc' && (
+        <div className="hidden print:block">
+          <ExecutiveReportPdfDocument
+            orgProfile={orgProfile}
+            calculationResults={calculationResults}
+            reportJalaliDate={reportJalaliDate}
+          />
+        </div>
+      )}
+    </div>
+  )}
+
+      {/* Floating PDF Generation Overlay/Toast */}
+      {isExportingPdf && (
+        <div className="fixed bottom-6 left-6 z-50 bg-slate-900 text-white px-5 py-3.5 rounded-2xl shadow-2xl flex items-center gap-3 border border-slate-700 text-xs font-bold animate-in fade-in slide-in-from-bottom-4">
+          <Loader2 className="w-4 h-4 animate-spin text-emerald-400 shrink-0" />
+          <span>{pdfProgressText || 'در حال آماده‌سازی و دانلود فایل PDF گزارش...'}</span>
+        </div>
+      )}
+
+      {/* Iframe Print Helpful Modal Notice */}
+      {showIframePrintHelp && (
+        <div className="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl p-6 max-w-md w-full shadow-2xl border border-slate-200 space-y-4 text-right">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+              <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
+                <Printer className="w-4 h-4 text-blue-600" />
+                <span>راهنمای خروجی PDF و چاپ گزارش</span>
+              </h3>
+              <button
+                onClick={() => setShowIframePrintHelp(false)}
+                className="p-1 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            <p className="text-xs text-slate-600 leading-relaxed">
+              اگر در پیش‌نمایش فعلی پنجره چاپ مرورگر باز نشد، به دلیل محدودیت‌های امنیتی پیش‌فرض فریم‌های تحت وب است. شما به راحتی می‌توانید از یکی از دو روش زیر خروجی بگیرید:
+            </p>
+
+            <div className="space-y-2.5">
+              <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-xl space-y-1">
+                <div className="text-xs font-bold text-emerald-800 flex items-center gap-1.5">
+                  <CheckCircle className="w-3.5 h-3.5 text-emerald-600" />
+                  <span>روش اول (پیشنهادی): دانلود مستقیم PDF</span>
+                </div>
+                <p className="text-[11px] text-emerald-700 leading-relaxed">
+                  بدون نیاز به پنجره پرینت، با زدن دکمه سبز رنگ زیر مستقیماً فایل کامل گزارش A4 را در کامپیوتر یا گوشی خود دریافت کنید.
+                </p>
+              </div>
+
+              <div className="p-3 bg-blue-50 border border-blue-200 rounded-xl space-y-1">
+                <div className="text-xs font-bold text-blue-800 flex items-center gap-1.5">
+                  <ExternalLink className="w-3.5 h-3.5 text-blue-600" />
+                  <span>روش دوم: باز کردن در برگه جدید مرورگر</span>
+                </div>
+                <p className="text-[11px] text-blue-700 leading-relaxed">
+                  با کلیک روی گزینه «Open in new tab» در بالای همین پیش‌نمایش، برنامه در تب مستقل باز شده و پرینتر مرورگر با تمام امکانات اجرا می‌شود.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-end gap-2 pt-2">
+              <button
+                type="button"
+                onClick={() => setShowIframePrintHelp(false)}
+                className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs transition"
+              >
+                متوجه شدم
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setShowIframePrintHelp(false);
+                  handleDownloadPdf();
+                }}
+                className="px-5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-xs transition shadow-sm flex items-center gap-1.5"
+              >
+                <Download className="w-4 h-4" />
+                <span>دانلود مستقیم فایل PDF</span>
               </button>
             </div>
           </div>

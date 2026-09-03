@@ -89,7 +89,7 @@ export default function App() {
 
       {/* Course Completion Modal */}
       {showCertificate && (
-        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 print:hidden">
           <div className="bg-white border border-slate-200 rounded-3xl p-8 max-w-xl w-full shadow-2xl relative text-center space-y-6 animate-in fade-in zoom-in duration-200">
             <button
               onClick={() => setShowCertificate(false)}
@@ -146,7 +146,7 @@ export default function App() {
       )}
 
       {/* Footer & Contact */}
-      <footer className="border-t border-slate-200 bg-white py-8 pb-24 md:pb-8 text-xs text-slate-600" dir="rtl">
+      <footer className="border-t border-slate-200 bg-white py-8 pb-24 md:pb-8 text-xs text-slate-600 print:hidden" dir="rtl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
           
           {/* Main Footer Row */}
