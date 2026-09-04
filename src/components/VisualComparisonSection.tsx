@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
-  CheckCircle2, ChevronLeft, ChevronRight, Zap
+  CheckCircle2, ChevronLeft, ChevronRight, Zap, ArrowLeft, ArrowRight
 } from 'lucide-react';
 
 interface VisualComparisonSectionProps {
@@ -111,7 +111,6 @@ const COMPARISON_PAIRS: ComparisonPair[] = [
 
 export const VisualComparisonSection: React.FC<VisualComparisonSectionProps> = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-
   const currentItem = COMPARISON_PAIRS[currentIndex];
 
   const handleNext = () => {
@@ -128,13 +127,11 @@ export const VisualComparisonSection: React.FC<VisualComparisonSectionProps> = (
       className="relative space-y-12 py-8 overflow-hidden"
       aria-label="مقایسه سازمان قبل و بعد از هوشران"
     >
-      {/* Background glow */}
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[500px] h-64 bg-blue-600/10 blur-[100px] -z-10 pointer-events-none rounded-full" />
+      {/* هاله نور پس‌زمینه */}
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[550px] h-72 bg-blue-600/15 blur-[110px] -z-10 pointer-events-none rounded-full" />
 
-      {/* =========================================================================
-          1. HEADER
-         ========================================================================= */}
-      <div className="text-center max-w-3xl mx-auto space-y-4 px-2">
+      {/* تیتر بالای بخش */}
+      <div className="text-center max-w-3xl mx-auto space-y-4 px-3">
         <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-snug">
           سازمان شما در کدام سمت قرار دارد؟
         </h2>
@@ -143,12 +140,10 @@ export const VisualComparisonSection: React.FC<VisualComparisonSectionProps> = (
         </p>
       </div>
 
-      {/* =========================================================================
-          2. آلبوم انتخابی (Pill Tabs + Controls)
-         ========================================================================= */}
+      {/* کانتینر آلبوم */}
       <div className="max-w-4xl mx-auto space-y-6 px-2 sm:px-4">
         
-        {/* نوار سربرگ‌های آلبوم با فونت درشت‌تر */}
+        {/* زبانه‌های انتخاب بالای آلبوم */}
         <div className="flex items-center justify-center gap-2 p-2 bg-white/[0.04] backdrop-blur-2xl rounded-2xl border border-white/10 overflow-x-auto no-scrollbar">
           {COMPARISON_PAIRS.map((item, idx) => {
             const isActive = currentIndex === idx;
@@ -170,9 +165,7 @@ export const VisualComparisonSection: React.FC<VisualComparisonSectionProps> = (
           })}
         </div>
 
-        {/* =====================================================================
-            3. کارت فعال آلبوم با متون خوانا و درشت
-           ===================================================================== */}
+        {/* کارت اسلایدر آلبوم (با حداقل ارتفاع ثابت و یکسان برای همه اسلایدها) */}
         <div className="relative">
           <AnimatePresence mode="wait">
             <motion.div
@@ -181,10 +174,10 @@ export const VisualComparisonSection: React.FC<VisualComparisonSectionProps> = (
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
               transition={{ duration: 0.25 }}
-              className="rounded-3xl bg-slate-800/70 border-2 border-white/80 p-5 sm:p-8 backdrop-blur-2xl shadow-2xl space-y-6"
+              className="rounded-3xl bg-slate-800/70 border-2 border-white/80 p-5 sm:p-8 backdrop-blur-2xl shadow-2xl space-y-6 min-h-[460px] sm:min-h-[420px] flex flex-col justify-between"
             >
-              {/* هدر بالایی کارت آلبوم */}
-              <div className="flex items-center justify-between pb-3.5 border-b border-slate-700/60">
+              {/* هدر بالایی کارت */}
+              <div className="flex items-center justify-between pb-3.5 border-b border-slate-700/60 shrink-0">
                 <div className="flex items-center gap-3">
                   <span className="font-mono font-bold text-blue-300 bg-blue-500/20 px-3 py-1 rounded-xl border border-blue-400/30 text-xs sm:text-sm">
                     مقایسه {currentItem.number} از ۰۵
@@ -194,7 +187,6 @@ export const VisualComparisonSection: React.FC<VisualComparisonSectionProps> = (
                   </span>
                 </div>
 
-                {/* دکمه‌های ورق زدن */}
                 <div className="flex items-center gap-2">
                   <button
                     onClick={handlePrev}
@@ -213,12 +205,12 @@ export const VisualComparisonSection: React.FC<VisualComparisonSectionProps> = (
                 </div>
               </div>
 
-              {/* گرید دوطرفه مقایسه */}
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch">
+              {/* پنل دوطرفه مقایسه (با ارتفاع ثابت هماهنگ و فیت) */}
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch flex-1 my-auto">
                 
-                {/* ۱. بدون هوشران (سمت چپ) */}
-                <div className="lg:col-span-5 p-5 sm:p-6 rounded-2xl bg-slate-900/90 border border-slate-700/70 flex flex-col justify-between space-y-4 shadow-sm">
-                  <div className="flex items-center justify-between">
+                {/* وضعیت بدون هوشران (سمت چپ) */}
+                <div className="lg:col-span-5 p-5 sm:p-6 rounded-2xl bg-slate-900/90 border-2 border-yellow-400 flex flex-col justify-between space-y-4 shadow-sm min-h-[220px] sm:min-h-[260px]">
+                  <div className="flex items-center justify-between shrink-0">
                     <span className="text-xs font-bold px-3 py-1 rounded-lg bg-amber-500/15 text-amber-300 border border-amber-500/30">
                       وضعیت آشنا • بدون هوشران
                     </span>
@@ -227,21 +219,21 @@ export const VisualComparisonSection: React.FC<VisualComparisonSectionProps> = (
                     </span>
                   </div>
 
-                  <div className="space-y-2.5">
+                  <div className="space-y-2.5 flex-1 flex flex-col justify-center">
                     <h4 className="text-base sm:text-lg xl:text-xl font-bold text-slate-100">
                       {currentItem.without.headline}
                     </h4>
-                    <p className="text-xs sm:text-base text-slate-300 leading-relaxed font-normal">
+                    <p className="text-sm sm:text-base text-slate-300 leading-relaxed font-normal">
                       {currentItem.without.subline}
                     </p>
                   </div>
 
-                  {currentItem.without.flow && (
-                    <div className="pt-3.5 border-t border-slate-700/50">
+                  {currentItem.without.flow ? (
+                    <div className="pt-3.5 border-t border-slate-700/50 shrink-0">
                       <div className="flex flex-wrap items-center gap-1.5 text-xs sm:text-sm text-slate-300 font-mono" dir="ltr">
                         {currentItem.without.flow.map((step, sIdx) => (
                           <React.Fragment key={sIdx}>
-                            <span className="px-2 py-1 rounded bg-slate-800 border border-slate-700 text-slate-200">
+                            <span className="px-2.5 py-1 rounded bg-slate-800 border border-slate-700 text-slate-200">
                               {step}
                             </span>
                             {sIdx < currentItem.without.flow!.length - 1 && (
@@ -251,10 +243,12 @@ export const VisualComparisonSection: React.FC<VisualComparisonSectionProps> = (
                         ))}
                       </div>
                     </div>
+                  ) : (
+                    <div className="h-4" />
                   )}
                 </div>
 
-                {/* ۲. ستون وسط VS */}
+                {/* نشانگر میانی VS */}
                 <div className="lg:col-span-2 flex items-center justify-center py-2 lg:py-0">
                   <div className="flex lg:flex-col items-center gap-2 text-center">
                     <div className="h-px lg:h-10 w-12 lg:w-px bg-slate-700" />
@@ -265,9 +259,9 @@ export const VisualComparisonSection: React.FC<VisualComparisonSectionProps> = (
                   </div>
                 </div>
 
-                {/* ۳. با هوشران (سمت راست - کارت سفید بسیار خوانا) */}
-                <div className="lg:col-span-5 p-5 sm:p-6 rounded-2xl bg-white border border-blue-100 flex flex-col justify-between space-y-4 shadow-md">
-                  <div className="flex items-center justify-between">
+                {/* وضعیت با هوشران (سمت راست) */}
+                <div className="lg:col-span-5 p-5 sm:p-6 rounded-2xl bg-white border border-blue-100 flex flex-col justify-between space-y-4 shadow-md min-h-[220px] sm:min-h-[260px]">
+                  <div className="flex items-center justify-between shrink-0">
                     <span className="text-xs font-bold px-3 py-1 rounded-lg bg-blue-50 text-blue-700 border border-blue-200 flex items-center gap-1.5">
                       <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse" />
                       وضعیت مطلوب • با هوشران
@@ -277,20 +271,20 @@ export const VisualComparisonSection: React.FC<VisualComparisonSectionProps> = (
                     </span>
                   </div>
 
-                  <div className="space-y-2.5">
+                  <div className="space-y-2.5 flex-1 flex flex-col justify-center">
                     <div className="flex items-center gap-2">
                       <CheckCircle2 className="w-5 h-5 text-blue-600 shrink-0" />
                       <h4 className="text-base sm:text-lg xl:text-xl font-black text-slate-900">
                         {currentItem.withHoushran.headline}
                       </h4>
                     </div>
-                    <p className="text-xs sm:text-base text-slate-700 leading-relaxed font-medium">
+                    <p className="text-sm sm:text-base text-slate-700 leading-relaxed font-medium">
                       {currentItem.withHoushran.subline}
                     </p>
                   </div>
 
                   {currentItem.withHoushran.flow && (
-                    <div className="pt-3.5 border-t border-slate-100">
+                    <div className="pt-3.5 border-t border-slate-100 shrink-0">
                       <div className="flex flex-wrap items-center gap-1.5 text-xs sm:text-sm font-mono" dir="ltr">
                         {currentItem.withHoushran.flow.map((step, sIdx) => (
                           <React.Fragment key={sIdx}>
@@ -307,10 +301,13 @@ export const VisualComparisonSection: React.FC<VisualComparisonSectionProps> = (
                   )}
 
                   {currentItem.withHoushran.note && (
-                    <div className="pt-2.5 border-t border-slate-100 flex items-start gap-2 text-xs sm:text-sm text-blue-900 font-semibold bg-blue-50/90 p-3 rounded-xl border border-blue-100">
+                    <div className="pt-2.5 border-t border-slate-100 flex items-start gap-2 text-xs sm:text-sm text-blue-900 font-semibold bg-blue-50/90 p-3 rounded-xl border border-blue-100 shrink-0">
                       <Zap className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
                       <span>{currentItem.withHoushran.note}</span>
                     </div>
+                  )}
+                  {!currentItem.withHoushran.flow && !currentItem.withHoushran.note && (
+                    <div className="h-4" />
                   )}
                 </div>
 
@@ -319,25 +316,49 @@ export const VisualComparisonSection: React.FC<VisualComparisonSectionProps> = (
           </AnimatePresence>
         </div>
 
-        {/* نقاط نشانگر صفحه (Pagination Dots) */}
-        <div className="flex items-center justify-center gap-2.5 pt-2">
-          {COMPARISON_PAIRS.map((_, dotIdx) => (
-            <button
-              key={dotIdx}
-              onClick={() => setCurrentIndex(dotIdx)}
-              className={`h-2.5 rounded-full transition-all cursor-pointer ${
-                currentIndex === dotIdx ? 'w-10 bg-blue-500 shadow-sm' : 'w-2.5 bg-white/20 hover:bg-white/40'
-              }`}
-              aria-label={`اسلاید ${dotIdx + 1}`}
-            />
-          ))}
+        {/* نوار ناوبری پایین آلبوم (دکمه‌های چپ و راست + نشانگر موقعیت) */}
+        <div className="flex items-center justify-between gap-4 p-3 bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-2xl">
+          {/* دکمه اسلاید قبلی */}
+          <button
+            onClick={handlePrev}
+            className="px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/15 text-slate-200 hover:text-white font-bold text-xs sm:text-sm transition flex items-center gap-2 border border-white/10 cursor-pointer"
+          >
+            <ArrowRight className="w-4 h-4" />
+            <span>مقایسه قبلی</span>
+          </button>
+
+          {/* نشانگرهای نقطه‌ای + شمارنده */}
+          <div className="flex items-center gap-3">
+            <div className="flex items-center gap-1.5">
+              {COMPARISON_PAIRS.map((_, dotIdx) => (
+                <button
+                  key={dotIdx}
+                  onClick={() => setCurrentIndex(dotIdx)}
+                  className={`h-2 rounded-full transition-all cursor-pointer ${
+                    currentIndex === dotIdx ? 'w-6 sm:w-8 bg-blue-500' : 'w-2 bg-white/20 hover:bg-white/40'
+                  }`}
+                  aria-label={`اسلاید ${dotIdx + 1}`}
+                />
+              ))}
+            </div>
+            <span className="font-mono text-xs font-bold text-slate-400">
+              {currentItem.number} / ۰۵
+            </span>
+          </div>
+
+          {/* دکمه اسلاید بعدی */}
+          <button
+            onClick={handleNext}
+            className="px-4 py-2.5 rounded-xl bg-blue-600/80 hover:bg-blue-600 text-white font-bold text-xs sm:text-sm transition flex items-center gap-2 border border-blue-400/30 cursor-pointer shadow-sm"
+          >
+            <span>مقایسه بعدی</span>
+            <ArrowLeft className="w-4 h-4" />
+          </button>
         </div>
 
       </div>
 
-      {/* =========================================================================
-          4. STATEMENT نهایی — فونت‌های درشت و تفکیک‌شده
-         ========================================================================= */}
+      {/* بیانیه نهایی */}
       <div className="pt-28 sm:pt-40 pb-20 sm:pb-32 max-w-4xl mx-auto text-center space-y-6 px-4 relative">
         <div className="w-28 h-0.5 bg-gradient-to-r from-transparent via-blue-500/40 to-transparent mx-auto mb-6" />
 
