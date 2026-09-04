@@ -1,7 +1,7 @@
 import React from 'react';
 import { 
-  ArrowLeft, Check, X as XIcon, 
-  BarChart3, ChevronDown 
+  ArrowLeft, 
+  BarChart3, ChevronDown, Check, X as XIcon 
 } from 'lucide-react';
 import { VisualComparisonSection } from './VisualComparisonSection';
 
@@ -37,7 +37,7 @@ export const WhyUs: React.FC<WhyUsProps> = ({
          ========================================================================= */}
       <section 
         id="section-hero"
-        className="min-h-[85vh] flex flex-col justify-center items-center text-center relative py-12 scroll-mt-20"
+        className="min-h-[85vh] flex flex-col justify-center items-center text-center relative py-16 scroll-mt-20"
       >
         {/* هاله نوری در پس‌زمینه */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[350px] bg-gradient-to-tr from-blue-600/25 via-indigo-500/20 to-cyan-400/20 blur-[120px] -z-10 pointer-events-none rounded-full" />
@@ -72,7 +72,7 @@ export const WhyUs: React.FC<WhyUsProps> = ({
         {/* دکمه راهنمای هدایت نرم به بخش بعدی */}
         <button
           onClick={() => scrollToSection('section-comparison')}
-          className="mt-12 inline-flex flex-col items-center gap-1.5 text-slate-500 hover:text-slate-300 transition group cursor-pointer"
+          className="mt-16 inline-flex flex-col items-center gap-1.5 text-slate-500 hover:text-slate-300 transition group cursor-pointer"
         >
           <span className="text-[11px] tracking-wider font-medium">مشاهده تمایز رویکرد</span>
           <ChevronDown className="w-4 h-4 animate-bounce text-blue-400" />
@@ -80,21 +80,35 @@ export const WhyUs: React.FC<WhyUsProps> = ({
       </section>
 
       {/* =========================================================================
-          SECTION: مقایسه بصری و روانشناختی قبل و بعد از هوشران (Visual Comparison & Loss Aversion)
+          SECTION 2: مقایسه بصری و روانشناختی (با ارتفاع مستقل و فضای تنفس باز)
          ========================================================================= */}
-      <div id="section-comparison" className="scroll-mt-20 border-t border-white/5 pt-10 sm:pt-16">
+      <section 
+        id="section-comparison" 
+        className="min-h-[90vh] flex flex-col justify-center scroll-mt-20 border-t border-white/5 py-24 sm:py-36 my-12 sm:my-20"
+      >
         <VisualComparisonSection
           onNavigate={onNavigate}
           onStartDiagnostic={handleDiagnosticClick}
         />
-      </div>
+
+        {/* دکمه هدایت به بخش مقایسه تفصیلی */}
+        <div className="text-center pt-12">
+          <button
+            onClick={() => scrollToSection('section-deep-comparison')}
+            className="inline-flex flex-col items-center gap-1.5 text-slate-500 hover:text-slate-300 transition group cursor-pointer"
+          >
+            <span className="text-[11px] tracking-wider font-medium">تحلیل تفاوت‌های ساختاری</span>
+            <ChevronDown className="w-4 h-4 animate-bounce text-blue-400" />
+          </button>
+        </div>
+      </section>
 
       {/* =========================================================================
-          SECTION 2 — مقایسه تفصیلی ابزارمحور با بازطراحی جریان کار
+          SECTION 3 — مقایسه تفصیلی ابزارمحور با بازطراحی جریان کار
          ========================================================================= */}
       <section 
         id="section-deep-comparison"
-        className="min-h-[85vh] flex flex-col justify-center space-y-10 py-16 scroll-mt-20 border-t border-white/5"
+        className="min-h-[85vh] flex flex-col justify-center space-y-12 py-20 sm:py-28 scroll-mt-20 border-t border-white/5 my-10"
       >
         <div className="text-center max-w-2xl mx-auto space-y-3">
           <h2 className="text-2xl sm:text-4xl font-black text-white leading-snug">
@@ -212,11 +226,11 @@ export const WhyUs: React.FC<WhyUsProps> = ({
       </section>
 
       {/* =========================================================================
-          SECTION 3 — دعوت به اقدام پایانی (ACTION SECTION)
+          SECTION 4 — دعوت به اقدام پایانی (ACTION SECTION)
          ========================================================================= */}
       <section 
         id="section-action"
-        className="min-h-[70vh] flex flex-col justify-center items-center text-center space-y-8 py-16 scroll-mt-20 border-t border-white/5"
+        className="min-h-[70vh] flex flex-col justify-center items-center text-center space-y-8 py-20 scroll-mt-20 border-t border-white/5 my-8"
       >
         <div className="space-y-3 max-w-xl mx-auto">
           <h2 className="text-2xl sm:text-4xl font-black text-white leading-snug">
