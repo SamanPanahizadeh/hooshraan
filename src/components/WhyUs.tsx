@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { 
   ArrowLeft, Check, X as XIcon, 
-  BarChart3, Scan, BookOpen, Laptop, Rocket, RefreshCw, ChevronDown 
+  BarChart3, ChevronDown 
 } from 'lucide-react';
 import { VisualComparisonSection } from './VisualComparisonSection';
 
@@ -16,8 +16,6 @@ export const WhyUs: React.FC<WhyUsProps> = ({
   onNavigate,
   onStartDiagnostic 
 }) => {
-  const [activeStep, setActiveStep] = useState<number>(0);
-
   const handleDiagnosticClick = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     if (onStartDiagnostic) onStartDiagnostic();
@@ -30,44 +28,6 @@ export const WhyUs: React.FC<WhyUsProps> = ({
       el.scrollIntoView({ behavior: 'smooth' });
     }
   };
-
-  const steps = [
-    {
-      id: '01',
-      title: 'عارضه‌یابی و سنجش',
-      en: 'DIAGNOSE',
-      desc: 'شناسایی گلوگاه‌های زمانی سازمان، ارزیابی آمادگی داده‌ها و تعیین دقیق مسائلی که هوش مصنوعی واقعاً می‌تواند حل کند.',
-      icon: Scan,
-    },
-    {
-      id: '02',
-      title: 'آموزش نقش‌محور',
-      en: 'LEARN',
-      desc: 'یادگیری متمرکز بر وظایف هر واحد (فروش، مارکتینگ، منابع انسانی) و تسلط بر مدل همکاری انسان با هوش مصنوعی (Co-Pilot).',
-      icon: BookOpen,
-    },
-    {
-      id: '03',
-      title: 'شبیه‌سازی عملیاتی',
-      en: 'PRACTICE',
-      desc: 'تمرین در آزمایشگاه‌های سناریومحور روی پرونده‌های واقعی، نامه‌های مناقصه و تحلیل‌های بازار بدون ریسک عملیاتی.',
-      icon: Laptop,
-    },
-    {
-      id: '04',
-      title: 'استقرار در Workflow',
-      en: 'APPLY',
-      desc: 'اتصال هوش مصنوعی به جریان روزمره کار؛ از تدوین مستندات و فرمول پرامپت‌های اختصاصی تا تغذیه اتوماتیک CRM.',
-      icon: Rocket,
-    },
-    {
-      id: '05',
-      title: 'سنجش و بهینه‌سازی',
-      en: 'IMPROVE',
-      desc: 'اندازه‌گیری کمی نفر-ساعت آزادشده و ارتقای مداوم هوش سازمانی به عنوان یک دارایی استراتژیک.',
-      icon: RefreshCw,
-    },
-  ];
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 text-slate-100" dir="rtl">
@@ -100,11 +60,11 @@ export const WhyUs: React.FC<WhyUsProps> = ({
           <div className="flex items-center justify-center pt-2">
             <button
               onClick={handleDiagnosticClick}
-              className="w-full sm:w-auto px-7 py-3.5 bg-blue-600/30 hover:bg-blue-600/50 text-white font-medium text-xs sm:text-sm rounded-2xl backdrop-blur-2xl border border-blue-400/40 shadow-[0_8px_32px_rgba(37,99,235,0.25),inset_0_1px_2px_rgba(255,255,255,0.4)] hover:shadow-[0_8px_40px_rgba(37,99,235,0.45)] hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2.5 group cursor-pointer"
+              className="w-full sm:w-auto px-9 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-xs sm:text-sm rounded-2xl shadow-[0_10px_35px_rgba(37,99,235,0.4)] hover:-translate-y-0.5 transition-all inline-flex items-center justify-center gap-3 group cursor-pointer"
             >
-              <BarChart3 className="w-4 h-4 text-blue-300" />
+              <BarChart3 className="w-5 h-5 text-blue-200" />
               <span>سنجش آنلاین بلوغ سازمانی (AIOD)</span>
-              <ArrowLeft className="w-4 h-4 text-blue-300 group-hover:text-white group-hover:-translate-x-1 transition-all" />
+              <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
             </button>
           </div>
         </div>
@@ -242,85 +202,17 @@ export const WhyUs: React.FC<WhyUsProps> = ({
         {/* هدایت به بخش بعد */}
         <div className="text-center pt-2">
           <button
-            onClick={() => scrollToSection('section-roadmap')}
-            className="inline-flex flex-col items-center gap-1.5 text-slate-500 hover:text-slate-300 transition group cursor-pointer"
-          >
-            <span className="text-[11px] tracking-wider font-medium">مشاهده فرآیند ۵ مرحله‌ای</span>
-            <ChevronDown className="w-4 h-4 animate-bounce text-blue-400" />
-          </button>
-        </div>
-      </section>
-
-      {/* =========================================================================
-          SECTION 3 — نقشه راه ۵ مرحله‌ای
-         ========================================================================= */}
-      <section 
-        id="section-roadmap"
-        className="min-h-[85vh] flex flex-col justify-center space-y-10 py-16 scroll-mt-20 border-t border-white/5"
-      >
-        <div className="text-center max-w-2xl mx-auto space-y-3">
-          <h2 className="text-2xl sm:text-4xl font-black text-white leading-snug">
-            فرآیند ۵ مرحله‌ای یادگیری تا کاربرد واقعی
-          </h2>
-          <p className="text-xs sm:text-sm text-slate-400">
-            برای مشاهده جزئیات هر فاز، روی مراحل زیر کلیک کنید:
-          </p>
-        </div>
-
-        {/* نوار انتخاب مراحل */}
-        <div className="grid grid-cols-2 sm:grid-cols-5 gap-2.5 p-2 bg-white/[0.03] backdrop-blur-2xl rounded-2xl border border-white/10">
-          {steps.map((step, idx) => (
-            <button
-              key={step.id}
-              onClick={() => setActiveStep(idx)}
-              className={`p-3.5 rounded-xl text-right transition-all flex flex-col justify-between ${
-                activeStep === idx 
-                  ? 'bg-white/[0.08] shadow-md border border-white/20 text-white scale-[1.02]' 
-                  : 'text-slate-400 hover:text-white hover:bg-white/[0.02]'
-              }`}
-            >
-              <div className="flex items-center justify-between w-full mb-1">
-                <span className="font-mono text-xs font-bold text-blue-400">{step.id}</span>
-                <span className="text-[10px] font-mono text-slate-500 uppercase">{step.en}</span>
-              </div>
-              <span className="text-xs font-bold truncate">{step.title}</span>
-            </button>
-          ))}
-        </div>
-
-        {/* کارت محتوای مرحله انتخاب‌شده */}
-        <div className="bg-white/[0.03] backdrop-blur-2xl rounded-3xl border border-white/10 p-7 sm:p-10 shadow-[0_20px_50px_rgba(0,0,0,0.4)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
-          <div className="space-y-3 max-w-2xl">
-            <div className="flex items-center gap-2">
-              <span className="text-xs font-mono font-bold text-blue-300 px-3 py-1 rounded-full bg-blue-500/20 border border-blue-400/30">
-                گام {steps[activeStep].id} • {steps[activeStep].en}
-              </span>
-              <h3 className="text-xl font-black text-white">{steps[activeStep].title}</h3>
-            </div>
-            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed text-justify">
-              {steps[activeStep].desc}
-            </p>
-          </div>
-
-          <div className="w-16 h-16 rounded-2xl bg-white/[0.06] border border-white/10 text-blue-400 flex items-center justify-center shrink-0 self-end sm:self-center shadow-inner">
-            {React.createElement(steps[activeStep].icon, { className: "w-7 h-7" })}
-          </div>
-        </div>
-
-        {/* هدایت به بخش اقدام پایانی */}
-        <div className="text-center pt-2">
-          <button
             onClick={() => scrollToSection('section-action')}
             className="inline-flex flex-col items-center gap-1.5 text-slate-500 hover:text-slate-300 transition group cursor-pointer"
           >
-            <span className="text-[11px] tracking-wider font-medium">گام بعدی چیست؟</span>
+            <span className="text-[11px] tracking-wider font-medium">سنجش آمادگی سازمان</span>
             <ChevronDown className="w-4 h-4 animate-bounce text-blue-400" />
           </button>
         </div>
       </section>
 
       {/* =========================================================================
-          SECTION 4 — دعوت به اقدام پایانی (ACTION SECTION)
+          SECTION 3 — دعوت به اقدام پایانی (ACTION SECTION)
          ========================================================================= */}
       <section 
         id="section-action"
