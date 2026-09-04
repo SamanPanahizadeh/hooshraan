@@ -1,8 +1,5 @@
 import React from 'react';
-import { 
-  ArrowLeft, 
-  BarChart3, ChevronDown, Check, X as XIcon 
-} from 'lucide-react';
+import { ArrowLeft, Check, X as XIcon, BarChart3, ChevronDown } from 'lucide-react';
 import { VisualComparisonSection } from './VisualComparisonSection';
 
 interface WhyUsProps {
@@ -12,10 +9,7 @@ interface WhyUsProps {
   onStartDiagnostic?: () => void;
 }
 
-export const WhyUs: React.FC<WhyUsProps> = ({ 
-  onNavigate,
-  onStartDiagnostic 
-}) => {
+export const WhyUs: React.FC<WhyUsProps> = ({ onNavigate, onStartDiagnostic }) => {
   const handleDiagnosticClick = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     if (onStartDiagnostic) onStartDiagnostic();
@@ -24,233 +18,208 @@ export const WhyUs: React.FC<WhyUsProps> = ({
 
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
-    }
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-6 text-slate-100" dir="rtl">
-      
-      {/* =========================================================================
-          SECTION 1 — HERO SECTION
-         ========================================================================= */}
-      <section 
-        id="section-hero"
-        className="min-h-[85vh] flex flex-col justify-center items-center text-center relative py-16 scroll-mt-20"
-      >
-        {/* هاله نوری در پس‌زمینه */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[350px] bg-gradient-to-tr from-blue-600/25 via-indigo-500/20 to-cyan-400/20 blur-[120px] -z-10 pointer-events-none rounded-full" />
-
-        <div className="space-y-8 w-full">
-          {/* تیتر اصلی */}
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.3] sm:leading-[1.2]">
-            ما به شما ابزار نمی‌فروشیم؛ <br className="hidden sm:block" />
-            <span className="bg-clip-text text-transparent bg-gradient-to-l from-blue-400 via-indigo-300 to-white">
-              جریان کار شما را بازطراحی می‌کنیم.
-            </span>
-          </h1>
-
-          {/* زیرتیتر */}
-          <p className="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed font-normal">
-            گذار از استفاده‌های پراکنده و انفرادی به ساخت قابلیت پایدار سازمانی بر پایه متدولوژی انسان هوش‌ران.
-          </p>
-
-          {/* دکمه‌های شیشه‌ای */}
-          <div className="flex items-center justify-center pt-2">
-            <button
-              onClick={handleDiagnosticClick}
-              className="w-full sm:w-auto px-9 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-xs sm:text-sm rounded-2xl shadow-[0_10px_35px_rgba(37,99,235,0.4)] hover:-translate-y-0.5 transition-all inline-flex items-center justify-center gap-3 group cursor-pointer"
-            >
-              <BarChart3 className="w-5 h-5 text-blue-200" />
-              <span>سنجش آنلاین بلوغ سازمانی (AIOD)</span>
-              <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-            </button>
-          </div>
-        </div>
-
-        {/* دکمه راهنمای هدایت نرم به بخش بعدی */}
-        <button
-          onClick={() => scrollToSection('section-comparison')}
-          className="mt-16 inline-flex flex-col items-center gap-1.5 text-slate-500 hover:text-slate-300 transition group cursor-pointer"
+    <div className="bg-[#FAFAFA] text-[#0F172A] min-h-screen" dir="rtl">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {/* =========================================================================
+            SECTION 1 — HERO SECTION
+           ========================================================================= */}
+        <section 
+          id="section-hero"
+          className="min-h-[80vh] flex flex-col justify-center items-center text-center py-20 sm:py-28"
         >
-          <span className="text-[11px] tracking-wider font-medium">مشاهده تمایز رویکرد</span>
-          <ChevronDown className="w-4 h-4 animate-bounce text-blue-400" />
-        </button>
-      </section>
+          <div className="max-w-3xl mx-auto space-y-8">
+            
+            {/* تیتر اصلی — محتوای دست‌نخورده با سلسله‌مراتب دقیق و کنتراست بالا */}
+            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-[#0F172A] tracking-tight leading-[1.3] sm:leading-[1.25]">
+              ما به شما ابزار نمی‌فروشیم؛ <br className="hidden sm:block" />
+              <span className="text-[#1D4ED8]">
+                جریان کار شما را بازطراحی می‌کنیم.
+              </span>
+            </h1>
 
-      {/* =========================================================================
-          SECTION 2: مقایسه بصری و روانشناختی (با ارتفاع مستقل و فضای تنفس باز)
-         ========================================================================= */}
-      <section 
-        id="section-comparison" 
-        className="min-h-[90vh] flex flex-col justify-center scroll-mt-20 border-t border-white/5 py-24 sm:py-36 my-12 sm:my-20"
-      >
-        <VisualComparisonSection
-          onNavigate={onNavigate}
-          onStartDiagnostic={handleDiagnosticClick}
-        />
+            {/* زیرتیتر */}
+            <p className="text-base sm:text-xl text-[#64748B] max-w-2xl mx-auto leading-relaxed font-normal">
+              گذار از استفاده‌های پراکنده و انفرادی به ساخت قابلیت پایدار سازمانی بر پایه متدولوژی انسان هوش‌ران.
+            </p>
 
-        {/* دکمه هدایت به بخش مقایسه تفصیلی */}
-        <div className="text-center pt-12">
+            {/* دکمه اصلی — استایل Solid بدون افکت‌های شلوغ */}
+            <div className="flex items-center justify-center pt-4">
+              <button
+                onClick={handleDiagnosticClick}
+                className="w-full sm:w-auto px-8 py-4 bg-[#1D4ED8] hover:bg-[#1E40AF] text-white font-bold text-sm sm:text-base rounded-xl shadow-sm transition-all duration-200 inline-flex items-center justify-center gap-3 cursor-pointer hover:shadow-md"
+              >
+                <BarChart3 className="w-5 h-5" />
+                <span>سنجش آنلاین بلوغ سازمانی (AIOD)</span>
+                <ArrowLeft className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+
+          {/* هدایت به بخش بعد */}
           <button
-            onClick={() => scrollToSection('section-deep-comparison')}
-            className="inline-flex flex-col items-center gap-1.5 text-slate-500 hover:text-slate-300 transition group cursor-pointer"
+            onClick={() => scrollToSection('section-comparison')}
+            className="mt-16 inline-flex flex-col items-center gap-2 text-[#94A3B8] hover:text-[#475569] transition cursor-pointer"
           >
-            <span className="text-[11px] tracking-wider font-medium">تحلیل تفاوت‌های ساختاری</span>
-            <ChevronDown className="w-4 h-4 animate-bounce text-blue-400" />
+            <span className="text-xs font-medium tracking-wide">مشاهده تمایز رویکرد</span>
+            <ChevronDown className="w-4 h-4 animate-bounce text-[#1D4ED8]" />
           </button>
-        </div>
-      </section>
+        </section>
 
-      {/* =========================================================================
-          SECTION 3 — مقایسه تفصیلی ابزارمحور با بازطراحی جریان کار
-         ========================================================================= */}
-      <section 
-        id="section-deep-comparison"
-        className="min-h-[85vh] flex flex-col justify-center space-y-12 py-20 sm:py-28 scroll-mt-20 border-t border-white/5 my-10"
-      >
-        <div className="text-center max-w-2xl mx-auto space-y-3">
-          <h2 className="text-2xl sm:text-4xl font-black text-white leading-snug">
-            تفاوت آموزش ابزارمحور با بازطراحی جریان کار
-          </h2>
-          <p className="text-xs sm:text-sm text-slate-400">
-            چرا دوره‌های سنتی متداول فراموش می‌شوند اما یادگیری متصل به فرآیند در سازمان تثبیت می‌شود؟
-          </p>
-        </div>
+        {/* =========================================================================
+            SECTION 2 — مقایسه بصری
+           ========================================================================= */}
+        <section id="section-comparison" className="border-t border-[#E2E8F0] py-24 sm:py-32">
+          <VisualComparisonSection
+            onNavigate={onNavigate}
+            onStartDiagnostic={handleDiagnosticClick}
+          />
+        </section>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
-          
-          {/* کارت سنتی */}
-          <div className="bg-white/[0.02] backdrop-blur-xl rounded-3xl border border-white/5 p-7 sm:p-9 space-y-6 flex flex-col justify-between shadow-lg">
-            <div className="space-y-5">
-              <div className="flex items-center justify-between border-b border-white/5 pb-4">
-                <div>
-                  <span className="text-[11px] font-bold text-rose-400 uppercase block">آموزش متداول بازار</span>
-                  <h3 className="text-lg font-black text-slate-200">نگاه ابزارمحور (Tool-Centric)</h3>
+        {/* =========================================================================
+            SECTION 3 — مقایسه تفصیلی ابزارمحور با بازطراحی جریان کار
+           ========================================================================= */}
+        <section 
+          id="section-deep-comparison"
+          className="border-t border-[#E2E8F0] py-24 sm:py-32 space-y-16"
+        >
+          <div className="text-center max-w-2xl mx-auto space-y-4">
+            <h2 className="text-2xl sm:text-4xl font-black text-[#0F172A] tracking-tight">
+              تفاوت آموزش ابزارمحور با بازطراحی جریان کار
+            </h2>
+            <p className="text-sm sm:text-base text-[#64748B] leading-relaxed">
+              چرا دوره‌های سنتی متداول فراموش می‌شوند اما یادگیری متصل به فرآیند در سازمان تثبیت می‌شود؟
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+            
+            {/* کارت نگاه سنتی */}
+            <div className="bg-[#FFFFFF] rounded-2xl border border-[#E2E8F0] p-8 sm:p-10 space-y-8 flex flex-col justify-between shadow-xs">
+              <div className="space-y-6">
+                <div className="flex items-center justify-between border-b border-[#F1F5F9] pb-5">
+                  <div>
+                    <span className="text-xs font-bold text-rose-600 uppercase block mb-1">آموزش متداول بازار</span>
+                    <h3 className="text-lg sm:text-xl font-bold text-[#0F172A]">نگاه ابزارمحور (Tool-Centric)</h3>
+                  </div>
+                  <span className="px-3 py-1 rounded-lg bg-rose-50 text-rose-700 text-xs font-bold border border-rose-100">
+                    نتیجه ناپایدار
+                  </span>
                 </div>
-                <span className="px-2.5 py-1 rounded-lg bg-rose-500/10 text-rose-400 text-xs font-bold border border-rose-500/20">نتیجه ناپایدار</span>
+
+                <ul className="space-y-4 text-sm text-[#475569] leading-relaxed">
+                  <li className="flex items-start gap-3">
+                    <div className="w-5 h-5 rounded-full bg-rose-50 text-rose-600 flex items-center justify-center shrink-0 mt-0.5">
+                      <XIcon className="w-3.5 h-3.5" />
+                    </div>
+                    <span>مرور صدها ابزار و مدل بدون اتصال به فرآیند کاری مشخص</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <div className="w-5 h-5 rounded-full bg-rose-50 text-rose-600 flex items-center justify-center shrink-0 mt-0.5">
+                      <XIcon className="w-3.5 h-3.5" />
+                    </div>
+                    <span>کپی پرامپت‌های آماده که در داده‌های واقعی و پیچیده کار نمی‌کنند</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <div className="w-5 h-5 rounded-full bg-rose-50 text-rose-600 flex items-center justify-center shrink-0 mt-0.5">
+                      <XIcon className="w-3.5 h-3.5" />
+                    </div>
+                    <span>آموزش منوها و دکمه‌ها به جای تقویت تفکر نقادانه و داوری انسانی</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <div className="w-5 h-5 rounded-full bg-rose-50 text-rose-600 flex items-center justify-center shrink-0 mt-0.5">
+                      <XIcon className="w-3.5 h-3.5" />
+                    </div>
+                    <span>فراموشی آموخته‌ها بلافاصله پس از اتمام دوره</span>
+                  </li>
+                </ul>
               </div>
 
-              <ul className="space-y-4 text-xs sm:text-sm text-slate-400">
-                <li className="flex items-start gap-3">
-                  <div className="w-5 h-5 rounded-full bg-rose-500/10 text-rose-400 flex items-center justify-center shrink-0 mt-0.5">
-                    <XIcon className="w-3 h-3" />
-                  </div>
-                  <span>مرور صدها ابزار و مدل بدون اتصال به فرآیند کاری مشخص</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="w-5 h-5 rounded-full bg-rose-500/10 text-rose-400 flex items-center justify-center shrink-0 mt-0.5">
-                    <XIcon className="w-3 h-3" />
-                  </div>
-                  <span>کپی پرامپت‌های آماده که در داده‌های واقعی و پیچیده کار نمی‌کنند</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="w-5 h-5 rounded-full bg-rose-500/10 text-rose-400 flex items-center justify-center shrink-0 mt-0.5">
-                    <XIcon className="w-3 h-3" />
-                  </div>
-                  <span>آموزش منوها و دکمه‌ها به جای تقویت تفکر نقادانه و داوری انسانی</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="w-5 h-5 rounded-full bg-rose-500/10 text-rose-400 flex items-center justify-center shrink-0 mt-0.5">
-                    <XIcon className="w-3 h-3" />
-                  </div>
-                  <span>فراموشی آموخته‌ها بلافاصله پس از اتمام دوره</span>
-                </li>
-              </ul>
+              <div className="p-4 bg-[#F8FAFC] rounded-xl text-xs text-[#64748B] text-center font-medium border border-[#E2E8F0]/60">
+                اتلاف بودجه و زمان سازمان بدون افزایش بهره‌وری ملموس.
+              </div>
             </div>
 
-            <div className="p-3.5 bg-white/[0.02] rounded-xl border border-white/5 text-xs text-slate-500 text-center font-medium">
-              اتلاف بودجه و زمان سازمان بدون افزایش بهره‌وری ملموس.
-            </div>
-          </div>
-
-          {/* کارت هوشران */}
-          <div className="bg-gradient-to-b from-blue-950/40 to-slate-900/40 backdrop-blur-2xl rounded-3xl border border-blue-500/30 p-7 sm:p-9 space-y-6 flex flex-col justify-between shadow-[0_20px_50px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.2)] relative overflow-hidden">
-            <div className="absolute top-0 right-0 left-0 h-1.5 bg-gradient-to-r from-blue-500 via-cyan-400 to-indigo-500" />
-
-            <div className="space-y-5">
-              <div className="flex items-center justify-between border-b border-blue-500/20 pb-4">
-                <div>
-                  <span className="text-[11px] font-bold text-blue-400 uppercase block">متدولوژی هوشران</span>
-                  <h3 className="text-lg font-black text-white">طراحی جریان کار (Workflow-First)</h3>
+            {/* کارت متدولوژی هوشران */}
+            <div className="bg-[#FFFFFF] rounded-2xl border-2 border-[#1D4ED8]/30 p-8 sm:p-10 space-y-8 flex flex-col justify-between shadow-sm relative">
+              <div className="space-y-6">
+                <div className="flex items-center justify-between border-b border-[#F1F5F9] pb-5">
+                  <div>
+                    <span className="text-xs font-bold text-[#1D4ED8] uppercase block mb-1">متدولوژی هوشران</span>
+                    <h3 className="text-lg sm:text-xl font-bold text-[#0F172A]">طراحی جریان کار (Workflow-First)</h3>
+                  </div>
+                  <span className="px-3 py-1 rounded-lg bg-blue-50 text-[#1D4ED8] text-xs font-bold border border-blue-100">
+                    قابلیت پایدار
+                  </span>
                 </div>
-                <span className="px-2.5 py-1 rounded-lg bg-blue-500/20 text-blue-300 text-xs font-bold border border-blue-400/30">قابلیت پایدار</span>
+
+                <ul className="space-y-4 text-sm text-[#334155] leading-relaxed">
+                  <li className="flex items-start gap-3">
+                    <div className="w-5 h-5 rounded-full bg-blue-50 text-[#1D4ED8] flex items-center justify-center shrink-0 mt-0.5">
+                      <Check className="w-3.5 h-3.5" />
+                    </div>
+                    <span>تشخیص نقاط درد و گلوگاه‌های واقعی کار قبل از انتخاب ابزار</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <div className="w-5 h-5 rounded-full bg-blue-50 text-[#1D4ED8] flex items-center justify-center shrink-0 mt-0.5">
+                      <Check className="w-3.5 h-3.5" />
+                    </div>
+                    <span>توسعه پایپ‌لاین زنجیره‌ای (تحقیق ← ارزیابی ← سناریو ← اقدام)</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <div className="w-5 h-5 rounded-full bg-blue-50 text-[#1D4ED8] flex items-center justify-center shrink-0 mt-0.5">
+                      <Check className="w-3.5 h-3.5" />
+                    </div>
+                    <span>تمرکز بر مدل همکار کمکی با حفظ نظارت و داوری کامل انسان</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <div className="w-5 h-5 rounded-full bg-blue-50 text-[#1D4ED8] flex items-center justify-center shrink-0 mt-0.5">
+                      <Check className="w-3.5 h-3.5" />
+                    </div>
+                    <span>ماندگاری دائمی در عادات کاری سازمان به دلیل اجرا روی پرونده‌های واقعی</span>
+                  </li>
+                </ul>
               </div>
 
-              <ul className="space-y-4 text-xs sm:text-sm text-slate-200">
-                <li className="flex items-start gap-3">
-                  <div className="w-5 h-5 rounded-full bg-blue-500 text-white flex items-center justify-center shrink-0 mt-0.5 shadow-sm">
-                    <Check className="w-3 h-3" />
-                  </div>
-                  <span>تشخیص نقاط درد و گلوگاه‌های واقعی کار قبل از انتخاب ابزار</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="w-5 h-5 rounded-full bg-blue-500 text-white flex items-center justify-center shrink-0 mt-0.5 shadow-sm">
-                    <Check className="w-3 h-3" />
-                  </div>
-                  <span>توسعه پایپ‌لاین زنجیره‌ای (تحقیق ← ارزیابی ← سناریو ← اقدام)</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="w-5 h-5 rounded-full bg-blue-500 text-white flex items-center justify-center shrink-0 mt-0.5 shadow-sm">
-                    <Check className="w-3 h-3" />
-                  </div>
-                  <span>تمرکز بر مدل همکار کمکی با حفظ نظارت و داوری کامل انسان</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="w-5 h-5 rounded-full bg-blue-500 text-white flex items-center justify-center shrink-0 mt-0.5 shadow-sm">
-                    <Check className="w-3 h-3" />
-                  </div>
-                  <span>ماندگاری دائمی در عادات کاری سازمان به دلیل اجرا روی پرونده‌های واقعی</span>
-                </li>
-              </ul>
+              <div className="p-4 bg-blue-50/70 rounded-xl text-xs text-[#1D4ED8] text-center font-semibold border border-blue-100">
+                صرفه‌جویی مستقیم نفر-ساعت و ارتقای کیفیت تصمیم‌گیری سازمانی.
+              </div>
             </div>
 
-            <div className="p-3.5 bg-blue-900/30 rounded-xl border border-blue-500/20 text-xs text-blue-200 text-center font-medium">
-              صرفه‌جویی مستقیم نفر-ساعت و ارتقای کیفیت تصمیم‌گیری سازمانی.
-            </div>
+          </div>
+        </section>
+
+        {/* =========================================================================
+            SECTION 4 — دعوت به اقدام پایانی (ACTION SECTION)
+           ========================================================================= */}
+        <section 
+          id="section-action"
+          className="border-t border-[#E2E8F0] py-24 sm:py-32 flex flex-col justify-center items-center text-center space-y-8"
+        >
+          <div className="space-y-4 max-w-xl mx-auto">
+            <h2 className="text-2xl sm:text-4xl font-black text-[#0F172A] tracking-tight">
+              آمادگی سازمان خود را برای هوش مصنوعی ارزیابی کنید
+            </h2>
+            <p className="text-sm sm:text-base text-[#64748B] leading-relaxed">
+              در کمتر از ۵ دقیقه سطح بلوغ فرآیندها، داده‌ها و مهارت‌های تیم خود را با ابزار تشخیصی اختصاصی هوشران بسنجید.
+            </p>
           </div>
 
-        </div>
-
-        {/* هدایت به بخش بعد */}
-        <div className="text-center pt-2">
           <button
-            onClick={() => scrollToSection('section-action')}
-            className="inline-flex flex-col items-center gap-1.5 text-slate-500 hover:text-slate-300 transition group cursor-pointer"
+            onClick={handleDiagnosticClick}
+            className="px-8 py-4 bg-[#1D4ED8] hover:bg-[#1E40AF] text-white font-bold text-sm sm:text-base rounded-xl shadow-sm transition-all duration-200 inline-flex items-center gap-3 cursor-pointer hover:shadow-md"
           >
-            <span className="text-[11px] tracking-wider font-medium">سنجش آمادگی سازمان</span>
-            <ChevronDown className="w-4 h-4 animate-bounce text-blue-400" />
+            <BarChart3 className="w-5 h-5" />
+            <span>ورود به سامانه سنجش بلوغ (AIOD)</span>
+            <ArrowLeft className="w-4 h-4" />
           </button>
-        </div>
-      </section>
+        </section>
 
-      {/* =========================================================================
-          SECTION 4 — دعوت به اقدام پایانی (ACTION SECTION)
-         ========================================================================= */}
-      <section 
-        id="section-action"
-        className="min-h-[70vh] flex flex-col justify-center items-center text-center space-y-8 py-20 scroll-mt-20 border-t border-white/5 my-8"
-      >
-        <div className="space-y-3 max-w-xl mx-auto">
-          <h2 className="text-2xl sm:text-4xl font-black text-white leading-snug">
-            آمادگی سازمان خود را برای هوش مصنوعی ارزیابی کنید
-          </h2>
-          <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
-            در کمتر از ۵ دقیقه سطح بلوغ فرآیندها، داده‌ها و مهارت‌های تیم خود را با ابزار تشخیصی اختصاصی هوشران بسنجید.
-          </p>
-        </div>
-
-        <button
-          onClick={handleDiagnosticClick}
-          className="px-9 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-xs sm:text-sm rounded-2xl shadow-[0_10px_35px_rgba(37,99,235,0.4)] hover:-translate-y-0.5 transition-all inline-flex items-center gap-3 group"
-        >
-          <BarChart3 className="w-5 h-5 text-blue-200" />
-          <span>ورود به سامانه سنجش بلوغ (AIOD)</span>
-          <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-        </button>
-      </section>
-
+      </div>
     </div>
   );
 };
