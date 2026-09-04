@@ -27,7 +27,7 @@ export default function App() {
   ].includes(activeTab);
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] text-slate-900 font-sans selection:bg-slate-800 selection:text-white antialiased flex flex-col justify-between" dir="rtl">
+    <div className="min-h-screen bg-[#0A0F1D] text-slate-100 font-sans selection:bg-blue-600 selection:text-white antialiased flex flex-col justify-between" dir="rtl">
       
       <div>
         {/* Course Identity Header + Primary Navigation */}
@@ -38,10 +38,10 @@ export default function App() {
           totalModulesCount={COURSE_MODULES.length}
         />
 
-        {/* Certificate Alert Banner (Floating Toast Style) */}
+        {/* Certificate Alert Banner (Floating Glass Toast) */}
         {isAllModulesCompleted && !showCertificate && (
           <div className="sticky top-20 z-40 px-4 py-2">
-            <div className="max-w-7xl mx-auto bg-slate-900 text-white rounded-2xl p-4 shadow-xl border border-slate-700/50 flex items-center justify-between flex-wrap gap-4 transition-all">
+            <div className="max-w-7xl mx-auto bg-slate-900/80 backdrop-blur-2xl text-white rounded-2xl p-4 shadow-2xl border border-white/10 flex items-center justify-between flex-wrap gap-4 transition-all">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-xl bg-amber-400/10 border border-amber-400/30 flex items-center justify-center shrink-0">
                   <Award className="w-5 h-5 text-amber-400" />
@@ -99,65 +99,65 @@ export default function App() {
 
       {/* Course Completion Modal */}
       {showCertificate && (
-        <div className="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-md flex items-center justify-center p-4 print:hidden animate-in fade-in duration-200">
-          <div className="bg-white border border-slate-200/80 rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl relative text-center space-y-6">
+        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 print:hidden animate-in fade-in duration-200">
+          <div className="bg-slate-900/90 backdrop-blur-2xl border border-white/10 rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl relative text-center space-y-6">
             <button
               onClick={() => setShowCertificate(false)}
-              className="absolute top-4 left-4 p-2 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-900 transition"
+              className="absolute top-4 left-4 p-2 rounded-full bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition"
               aria-label="بستن"
             >
               <X className="w-4 h-4" />
             </button>
 
             {/* Emblem / Badge */}
-            <div className="w-16 h-16 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-600 flex items-center justify-center mx-auto shadow-inner">
+            <div className="w-16 h-16 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center mx-auto shadow-inner">
               <Award className="w-8 h-8" />
             </div>
 
             <div className="space-y-1.5">
-              <span className="text-[11px] font-bold text-blue-600 tracking-wider uppercase bg-blue-50 px-3 py-1 rounded-full">
+              <span className="text-[11px] font-bold text-blue-400 tracking-wider uppercase bg-blue-500/10 px-3 py-1 rounded-full border border-blue-400/20">
                 گواهی رسمی اتمام دوره
               </span>
-              <h2 className="text-xl sm:text-2xl font-black text-slate-900 pt-2">
+              <h2 className="text-xl sm:text-2xl font-black text-white pt-2">
                 Sales AI Customer Journey
               </h2>
-              <p className="text-xs text-slate-500 leading-relaxed max-w-sm mx-auto">
+              <p className="text-xs text-slate-400 leading-relaxed max-w-sm mx-auto">
                 تسلط بر کاربرد عملیاتی ابزارهای هوش مصنوعی مولد در فرآیندهای فروش سازمانی و ارتباط با مشتری
               </p>
             </div>
 
             {/* Score Pill */}
-            <div className="inline-flex items-center gap-2 bg-slate-50 border border-slate-200 text-slate-700 px-4 py-2 rounded-xl text-xs font-semibold">
-              <Trophy className="w-4 h-4 text-amber-500" />
+            <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 text-slate-200 px-4 py-2 rounded-xl text-xs font-semibold">
+              <Trophy className="w-4 h-4 text-amber-400" />
               <span>مجموع امتیاز کسب‌شده:</span>
-              <span className="font-mono font-bold text-slate-900 text-sm">
+              <span className="font-mono font-bold text-white text-sm">
                 {totalPointsEarned} / {maxCoursePoints}
               </span>
             </div>
 
             {/* Skills Acquired List */}
-            <div className="bg-slate-50/80 p-4 rounded-2xl border border-slate-200/60 text-xs text-slate-700 font-medium space-y-2.5 text-right">
+            <div className="bg-white/[0.03] p-4 rounded-2xl border border-white/10 text-xs text-slate-300 font-medium space-y-2.5 text-right">
               <div className="flex items-center gap-2.5">
-                <CheckCircle className="w-4 h-4 text-emerald-600 shrink-0" />
+                <CheckCircle className="w-4 h-4 text-emerald-400 shrink-0" />
                 <span>تسلط بر مدل Co-Pilot و چارچوب ترکیبی Human + AI</span>
               </div>
               <div className="flex items-center gap-2.5">
-                <CheckCircle className="w-4 h-4 text-emerald-600 shrink-0" />
+                <CheckCircle className="w-4 h-4 text-emerald-400 shrink-0" />
                 <span>تدوین Research Brief سازمانی و تفکیک داده موثق از فرضیه</span>
               </div>
               <div className="flex items-center gap-2.5">
-                <CheckCircle className="w-4 h-4 text-emerald-600 shrink-0" />
+                <CheckCircle className="w-4 h-4 text-emerald-400 shrink-0" />
                 <span>شخصی‌سازی مکاتبات بدون جعل داده و تدوین سناریوهای پرومپت</span>
               </div>
               <div className="flex items-center gap-2.5">
-                <CheckCircle className="w-4 h-4 text-emerald-600 shrink-0" />
+                <CheckCircle className="w-4 h-4 text-emerald-400 shrink-0" />
                 <span>توسعه حافظه مشتری در CRM و چرخه ۵ مرحله‌ای S.C.O.O.V</span>
               </div>
             </div>
 
             <button
               onClick={() => setShowCertificate(false)}
-              className="w-full py-3 bg-slate-900 hover:bg-slate-800 text-white font-medium rounded-xl text-sm transition shadow-sm"
+              className="w-full py-3 bg-blue-600 hover:bg-blue-500 text-white font-medium rounded-xl text-sm transition shadow-lg shadow-blue-600/30"
             >
               بازگشت به داشبورد
             </button>
@@ -166,26 +166,26 @@ export default function App() {
       )}
 
       {/* Footer & Corporate Identity */}
-      <footer className="border-t border-slate-200 bg-white/80 backdrop-blur-sm py-8 text-xs text-slate-600 print:hidden" dir="rtl">
+      <footer className="border-t border-white/10 bg-slate-950/60 backdrop-blur-xl py-8 text-xs text-slate-400 print:hidden" dir="rtl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
           
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6 pb-6 border-b border-slate-100">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6 pb-6 border-b border-white/5">
             
             {/* Branding */}
             <div className="flex flex-col items-center md:items-start text-center md:text-right gap-2 max-w-md">
-              <HoushranEmblem className="h-9 w-auto" alt="هوشران" />
-              <p className="text-[12px] text-slate-500 leading-relaxed">
+              <HoushranEmblem className="h-9 w-auto text-white brightness-0 invert opacity-95 hover:opacity-100 transition-opacity" alt="هوشران" />
+              <p className="text-[12px] text-slate-400 leading-relaxed">
                 توسعه مهارت‌های راهبردی و کاربردی هوش مصنوعی مولد برای مدیران و تیم‌های پیشرو
               </p>
-              <div className="inline-flex items-center gap-2 text-[11px] text-slate-500 bg-slate-100/80 px-2.5 py-1 rounded-md border border-slate-200/60">
+              <div className="inline-flex items-center gap-2 text-[11px] text-slate-400 bg-white/5 px-2.5 py-1 rounded-md border border-white/10">
                 <span>با همکاری:</span>
-                <span className="font-semibold text-slate-800">نشر هنوز</span>
+                <span className="font-semibold text-slate-200">نشر هنوز</span>
               </div>
             </div>
 
             {/* Social & Contact */}
             <div className="flex flex-col items-center md:items-end gap-2.5">
-              <span className="text-[11px] font-semibold text-slate-400">کانال‌های ارتباطی</span>
+              <span className="text-[11px] font-semibold text-slate-500">کانال‌های ارتباطی</span>
               <div className="flex flex-wrap items-center justify-center md:justify-end gap-2">
                 
                 {/* Telegram */}
@@ -193,21 +193,21 @@ export default function App() {
                   href="https://t.me/HooshRaan"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 hover:border-slate-300 px-3 py-1.5 rounded-xl text-xs transition shadow-xs"
+                  className="inline-flex items-center gap-2 bg-white/5 hover:bg-white/10 text-slate-300 border border-white/10 hover:border-white/20 px-3 py-1.5 rounded-xl text-xs transition backdrop-blur-md"
                   dir="ltr"
                 >
                   <Send className="w-3.5 h-3.5 text-[#229ED9]" />
                   <span className="font-sans text-[11.5px] font-medium">t.me/HooshRaan</span>
-                  <ExternalLink className="w-3 h-3 text-slate-400" />
+                  <ExternalLink className="w-3 h-3 text-slate-500" />
                 </a>
 
                 {/* Email */}
                 <a
                   href="mailto:info@houshraan.ir"
-                  className="inline-flex items-center gap-2 bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 hover:border-slate-300 px-3 py-1.5 rounded-xl text-xs transition shadow-xs"
+                  className="inline-flex items-center gap-2 bg-white/5 hover:bg-white/10 text-slate-300 border border-white/10 hover:border-white/20 px-3 py-1.5 rounded-xl text-xs transition backdrop-blur-md"
                   dir="ltr"
                 >
-                  <Mail className="w-3.5 h-3.5 text-slate-500" />
+                  <Mail className="w-3.5 h-3.5 text-slate-400" />
                   <span className="font-sans text-[11.5px] font-medium">info@houshraan.ir</span>
                 </a>
 
@@ -216,12 +216,12 @@ export default function App() {
                   href="https://www.linkedin.com/company/houshraan"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 hover:border-slate-300 px-3 py-1.5 rounded-xl text-xs transition shadow-xs"
+                  className="inline-flex items-center gap-2 bg-white/5 hover:bg-white/10 text-slate-300 border border-white/10 hover:border-white/20 px-3 py-1.5 rounded-xl text-xs transition backdrop-blur-md"
                   dir="ltr"
                 >
                   <Linkedin className="w-3.5 h-3.5 text-[#0A66C2]" />
                   <span className="font-sans text-[11.5px] font-medium">LinkedIn</span>
-                  <ExternalLink className="w-3 h-3 text-slate-400" />
+                  <ExternalLink className="w-3 h-3 text-slate-500" />
                 </a>
 
               </div>
@@ -230,7 +230,7 @@ export default function App() {
           </div>
 
           {/* Sub-footer */}
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-2 text-slate-400 text-[11px]">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-2 text-slate-500 text-[11px]">
             <div>Human + AI → Better Sales Performance</div>
             <div className="font-sans" dir="ltr">© {new Date().getFullYear()} Houshran. All rights reserved.</div>
           </div>
