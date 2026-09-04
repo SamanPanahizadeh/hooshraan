@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
-  CheckCircle2, ChevronLeft, ChevronRight, Zap, ArrowLeft, ArrowRight
+  CheckCircle2, ChevronLeft, ChevronRight, Zap
 } from 'lucide-react';
 
 interface VisualComparisonSectionProps {
@@ -140,41 +140,37 @@ export const VisualComparisonSection: React.FC<VisualComparisonSectionProps> = (
         </p>
       </div>
 
-      {/* کانتینر آلبوم */}
-      <div className="max-w-4xl mx-auto space-y-6 px-2 sm:px-4">
+      {/* کانتینر اصلی آلبوم با فلش‌های ناوبری کناری */}
+      <div className="max-w-5xl mx-auto relative px-2 sm:px-14">
         
-        {/* زبانه‌های انتخاب بالای آلبوم */}
-        <div className="flex items-center justify-center gap-2 p-2 bg-white/[0.04] backdrop-blur-2xl rounded-2xl border border-white/10 overflow-x-auto no-scrollbar">
-          {COMPARISON_PAIRS.map((item, idx) => {
-            const isActive = currentIndex === idx;
-            return (
-              <button
-                key={item.id}
-                onClick={() => setCurrentIndex(idx)}
-                className={`px-3.5 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center gap-2 shrink-0 cursor-pointer ${
-                  isActive
-                    ? 'bg-blue-600 text-white shadow-md shadow-blue-600/30 border border-blue-400/40 scale-[1.02]'
-                    : 'text-slate-300 hover:text-white hover:bg-white/[0.06]'
-                }`}
-              >
-                <span className="font-mono text-xs sm:text-sm opacity-90">{item.number}</span>
-                <span className="hidden sm:inline">{item.question}</span>
-                <span className="sm:hidden">{item.question.split(' ')[0]}</span>
-              </button>
-            );
-          })}
-        </div>
+        {/* دکمه فلش سمت راست (برای بازگشت به مقایسه قبلی) */}
+        <button
+          onClick={handlePrev}
+          aria-label="مقایسه قبلی"
+          className="absolute right-0 sm:right-2 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-slate-900/80 hover:bg-slate-800 text-white backdrop-blur-xl border border-white/20 shadow-xl flex items-center justify-center transition-all hover:scale-110 active:scale-95 cursor-pointer"
+        >
+          <ChevronRight className="w-6 h-6" />
+        </button>
 
-        {/* کارت اسلایدر آلبوم (با حداقل ارتفاع ثابت و یکسان برای همه اسلایدها) */}
+        {/* دکمه فلش سمت چپ (برای رفتن به مقایسه بعدی) */}
+        <button
+          onClick={handleNext}
+          aria-label="مقایسه بعدی"
+          className="absolute left-0 sm:left-2 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-slate-900/80 hover:bg-slate-800 text-white backdrop-blur-xl border border-white/20 shadow-xl flex items-center justify-center transition-all hover:scale-110 active:scale-95 cursor-pointer"
+        >
+          <ChevronLeft className="w-6 h-6" />
+        </button>
+
+        {/* کارت اسلایدر آلبوم (خلوت و هم‌اندازه) */}
         <div className="relative">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentItem.id}
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -20 }}
+              initial={{ opacity: 0, scale: 0.98 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.98 }}
               transition={{ duration: 0.25 }}
-              className="rounded-3xl bg-slate-800/70 border-2 border-white/80 p-5 sm:p-8 backdrop-blur-2xl shadow-2xl space-y-6 min-h-[460px] sm:min-h-[420px] flex flex-col justify-between"
+              className="rounded-3xl bg-slate-800/70 border-2 border-white/80 p-5 sm:p-8 backdrop-blur-2xl shadow-2xl space-y-6 min-h-[440px] sm:min-h-[400px] flex flex-col justify-between"
             >
               {/* هدر بالایی کارت */}
               <div className="flex items-center justify-between pb-3.5 border-b border-slate-700/60 shrink-0">
@@ -186,30 +182,13 @@ export const VisualComparisonSection: React.FC<VisualComparisonSectionProps> = (
                     {currentItem.question}
                   </span>
                 </div>
-
-                <div className="flex items-center gap-2">
-                  <button
-                    onClick={handlePrev}
-                    aria-label="قبلی"
-                    className="p-2 rounded-xl bg-white/5 hover:bg-white/15 text-slate-200 hover:text-white transition border border-white/10 cursor-pointer"
-                  >
-                    <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
-                  </button>
-                  <button
-                    onClick={handleNext}
-                    aria-label="بعدی"
-                    className="p-2 rounded-xl bg-white/5 hover:bg-white/15 text-slate-200 hover:text-white transition border border-white/10 cursor-pointer"
-                  >
-                    <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
-                  </button>
-                </div>
               </div>
 
-              {/* پنل دوطرفه مقایسه (با ارتفاع ثابت هماهنگ و فیت) */}
+              {/* پنل دوطرفه مقایسه با ابعاد هماهنگ */}
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch flex-1 my-auto">
                 
                 {/* وضعیت بدون هوشران (سمت چپ) */}
-                <div className="lg:col-span-5 p-5 sm:p-6 rounded-2xl bg-slate-900/90 border-2 border-yellow-400 flex flex-col justify-between space-y-4 shadow-sm min-h-[220px] sm:min-h-[260px]">
+                <div className="lg:col-span-5 p-5 sm:p-6 rounded-2xl bg-slate-900/90 border-2 border-yellow-400 flex flex-col justify-between space-y-4 shadow-sm min-h-[220px] sm:min-h-[250px]">
                   <div className="flex items-center justify-between shrink-0">
                     <span className="text-xs font-bold px-3 py-1 rounded-lg bg-amber-500/15 text-amber-300 border border-amber-500/30">
                       وضعیت آشنا • بدون هوشران
@@ -260,7 +239,7 @@ export const VisualComparisonSection: React.FC<VisualComparisonSectionProps> = (
                 </div>
 
                 {/* وضعیت با هوشران (سمت راست) */}
-                <div className="lg:col-span-5 p-5 sm:p-6 rounded-2xl bg-white border border-blue-100 flex flex-col justify-between space-y-4 shadow-md min-h-[220px] sm:min-h-[260px]">
+                <div className="lg:col-span-5 p-5 sm:p-6 rounded-2xl bg-white border border-blue-100 flex flex-col justify-between space-y-4 shadow-md min-h-[220px] sm:min-h-[250px]">
                   <div className="flex items-center justify-between shrink-0">
                     <span className="text-xs font-bold px-3 py-1 rounded-lg bg-blue-50 text-blue-700 border border-blue-200 flex items-center gap-1.5">
                       <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse" />
@@ -316,44 +295,18 @@ export const VisualComparisonSection: React.FC<VisualComparisonSectionProps> = (
           </AnimatePresence>
         </div>
 
-        {/* نوار ناوبری پایین آلبوم (دکمه‌های چپ و راست + نشانگر موقعیت) */}
-        <div className="flex items-center justify-between gap-4 p-3 bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-2xl">
-          {/* دکمه اسلاید قبلی */}
-          <button
-            onClick={handlePrev}
-            className="px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/15 text-slate-200 hover:text-white font-bold text-xs sm:text-sm transition flex items-center gap-2 border border-white/10 cursor-pointer"
-          >
-            <ArrowRight className="w-4 h-4" />
-            <span>مقایسه قبلی</span>
-          </button>
-
-          {/* نشانگرهای نقطه‌ای + شمارنده */}
-          <div className="flex items-center gap-3">
-            <div className="flex items-center gap-1.5">
-              {COMPARISON_PAIRS.map((_, dotIdx) => (
-                <button
-                  key={dotIdx}
-                  onClick={() => setCurrentIndex(dotIdx)}
-                  className={`h-2 rounded-full transition-all cursor-pointer ${
-                    currentIndex === dotIdx ? 'w-6 sm:w-8 bg-blue-500' : 'w-2 bg-white/20 hover:bg-white/40'
-                  }`}
-                  aria-label={`اسلاید ${dotIdx + 1}`}
-                />
-              ))}
-            </div>
-            <span className="font-mono text-xs font-bold text-slate-400">
-              {currentItem.number} / ۰۵
-            </span>
-          </div>
-
-          {/* دکمه اسلاید بعدی */}
-          <button
-            onClick={handleNext}
-            className="px-4 py-2.5 rounded-xl bg-blue-600/80 hover:bg-blue-600 text-white font-bold text-xs sm:text-sm transition flex items-center gap-2 border border-blue-400/30 cursor-pointer shadow-sm"
-          >
-            <span>مقایسه بعدی</span>
-            <ArrowLeft className="w-4 h-4" />
-          </button>
+        {/* نقاط نشانگر مینیمال زیر کارت */}
+        <div className="flex items-center justify-center gap-2 pt-4">
+          {COMPARISON_PAIRS.map((_, dotIdx) => (
+            <button
+              key={dotIdx}
+              onClick={() => setCurrentIndex(dotIdx)}
+              className={`h-2 rounded-full transition-all cursor-pointer ${
+                currentIndex === dotIdx ? 'w-8 bg-blue-500 shadow-sm' : 'w-2 bg-white/20 hover:bg-white/40'
+              }`}
+              aria-label={`اسلاید ${dotIdx + 1}`}
+            />
+          ))}
         </div>
 
       </div>
