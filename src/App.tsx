@@ -202,12 +202,12 @@ export default function App() {
                 {/* LinkedIn Link */}
                 <a
                   id="contact-linkedin-link"
-                  href="https://www.linkedin.com/in/saman-panahizadeh"
+                  href="https://www.linkedin.com/company/houshraan"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center gap-2 bg-[#f9f9ff] hover:bg-white text-slate-700 hover:text-[#0A66C2] border border-slate-200 hover:border-[#0A66C2]/50 px-3 py-1.5 rounded-xl text-xs font-medium transition-all duration-200 shadow-sm group"
                   dir="ltr"
-                  title="مشاهده پروفایل لینکدین"
+                  title="صفحه لینکدین هوشران"
                 >
                   <div className="w-5 h-5 rounded-lg bg-[#0A66C2]/10 flex items-center justify-center text-[#0A66C2] group-hover:bg-[#0A66C2] group-hover:text-white transition-colors">
                     <Linkedin className="w-3.5 h-3.5" />
