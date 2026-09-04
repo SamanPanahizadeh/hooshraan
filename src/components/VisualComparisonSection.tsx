@@ -126,23 +126,26 @@ export const VisualComparisonSection: React.FC<VisualComparisonSectionProps> = (
   return (
     <section 
       id="before-after-comparison-section"
-      className="relative space-y-16 py-8"
+      className="relative space-y-10 sm:space-y-16 py-4 sm:py-8 overflow-hidden"
       aria-label="مقایسه سازمان قبل و بعد از هوشران"
     >
+      {/* Background glow - constrained to prevent mobile horizontal scroll */}
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[500px] h-64 bg-blue-600/10 blur-[100px] -z-10 pointer-events-none rounded-full" />
+
       {/* =========================================================================
-          1. HEADER — شفاف، کنجکاوی‌برانگیز و غیرترساننده
+          1. HEADER — شفاف، کنجکاوی‌برانگیز و بدون واژگان ترساننده
          ========================================================================= */}
-      <div className="text-center max-w-3xl mx-auto space-y-4">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-500/10 border border-blue-400/20 text-blue-300 text-xs font-semibold backdrop-blur-md">
-          <Sparkles className="w-3.5 h-3.5 text-blue-400" />
+      <div className="text-center max-w-3xl mx-auto space-y-3 sm:space-y-4 px-2">
+        <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-400/20 text-blue-300 text-[11px] sm:text-xs font-semibold backdrop-blur-md">
+          <Sparkles className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-blue-400 shrink-0" />
           <span>آینه بلوغ سازمانی</span>
         </div>
 
-        <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-[1.25]">
+        <h2 className="text-xl sm:text-3xl lg:text-4xl xl:text-5xl font-black text-white tracking-tight leading-[1.3] sm:leading-[1.25]">
           سازمان شما در کدام سمت قرار دارد؟
         </h2>
 
-        <p className="text-sm sm:text-base text-slate-400 max-w-xl mx-auto font-normal leading-relaxed">
+        <p className="text-xs sm:text-sm lg:text-base text-slate-300 max-w-xl mx-auto font-normal leading-relaxed">
           تفاوت، فقط در استفاده از AI نیست؛ در شیوه کار کردن سازمان است.
         </p>
       </div>
@@ -150,22 +153,22 @@ export const VisualComparisonSection: React.FC<VisualComparisonSectionProps> = (
       {/* =========================================================================
           2. MASTER COMPARISON BOARD (Desktop & Mobile Adaptive)
          ========================================================================= */}
-      <div className="space-y-6">
+      <div className="space-y-4 sm:space-y-6">
         
-        {/* Column Headers (Desktop) */}
+        {/* Column Headers (Desktop - lg screens) */}
         <div className="hidden lg:grid grid-cols-12 gap-4 items-center px-4">
           
           {/* Left Column Header (بدون هوشران) */}
-          <div className="col-span-5 p-5 rounded-2xl bg-white/[0.02] border border-white/5 backdrop-blur-md flex items-center justify-between">
+          <div className="col-span-5 p-4 xl:p-5 rounded-2xl bg-white/[0.02] border border-white/5 backdrop-blur-md flex items-center justify-between">
             <div className="space-y-1">
               <span className="text-[11px] font-bold text-amber-400/90 tracking-wider uppercase block">
                 وضعیت آشنا • بدون هوشران
               </span>
-              <h3 className="text-base font-black text-slate-200">
+              <h3 className="text-sm xl:text-base font-black text-slate-200">
                 سازمان بدون آموزش ساختاریافته AI
               </h3>
             </div>
-            <span className="px-2.5 py-1 rounded-lg bg-white/5 text-slate-400 text-xs font-medium border border-white/5">
+            <span className="px-2.5 py-1 rounded-lg bg-white/5 text-slate-400 text-xs font-medium border border-white/5 shrink-0">
               فرصت‌های از دست‌رفته
             </span>
           </div>
@@ -178,61 +181,85 @@ export const VisualComparisonSection: React.FC<VisualComparisonSectionProps> = (
           </div>
 
           {/* Right Column Header (با هوشران) */}
-          <div className="col-span-5 p-5 rounded-2xl bg-blue-600/15 border border-blue-400/30 backdrop-blur-md flex items-center justify-between shadow-[0_0_30px_rgba(37,99,235,0.15)]">
+          <div className="col-span-5 p-4 xl:p-5 rounded-2xl bg-blue-600/15 border border-blue-400/30 backdrop-blur-md flex items-center justify-between shadow-[0_0_30px_rgba(37,99,235,0.15)]">
             <div className="space-y-1">
               <span className="text-[11px] font-bold text-blue-400 tracking-wider uppercase block">
                 وضعیت مطلوب • با هوشران
               </span>
-              <h3 className="text-base font-black text-white">
+              <h3 className="text-sm xl:text-base font-black text-white">
                 سازمان آموزش‌دیده با هوشران
               </h3>
             </div>
-            <span className="px-2.5 py-1 rounded-lg bg-blue-500/20 text-blue-300 text-xs font-bold border border-blue-400/30 flex items-center gap-1.5">
+            <span className="px-2.5 py-1 rounded-lg bg-blue-500/20 text-blue-300 text-xs font-bold border border-blue-400/30 flex items-center gap-1.5 shrink-0">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
               قابلیت پایدار
             </span>
           </div>
         </div>
 
+        {/* Mobile Mini Column Legend (برای گوشی‌ها تا در یک نگاه تفاوت را بشناسند) */}
+        <div className="grid grid-cols-2 gap-2 lg:hidden px-1 text-center">
+          <div className="p-2.5 rounded-xl bg-white/[0.03] border border-white/5">
+            <span className="text-[10px] font-bold text-amber-400/90 block">وضعیت آشنا</span>
+            <span className="text-xs font-black text-slate-300">بدون هوشران</span>
+          </div>
+          <div className="p-2.5 rounded-xl bg-blue-500/15 border border-blue-400/30">
+            <span className="text-[10px] font-bold text-blue-400 block">وضعیت مطلوب</span>
+            <span className="text-xs font-black text-white">با هوشران</span>
+          </div>
+        </div>
+
         {/* =====================================================================
             3. PAIRED COMPARISON ROWS (5 Main Pillars)
            ===================================================================== */}
-        <div className="space-y-4">
+        <div className="space-y-3.5 sm:space-y-4">
           {COMPARISON_PAIRS.map((item, idx) => (
             <motion.div
               key={item.id}
-              initial={{ opacity: 0, y: 16 }}
+              initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.35, delay: idx * 0.08 }}
-              className="group rounded-3xl bg-slate-900/40 border border-white/5 hover:border-white/10 transition-all p-4 sm:p-5 backdrop-blur-xl"
+              viewport={{ once: true, margin: "-20px" }}
+              transition={{ duration: 0.3, delay: Math.min(idx * 0.06, 0.3) }}
+              className="group rounded-2xl sm:rounded-3xl bg-slate-900/40 border border-white/5 hover:border-white/10 transition-all p-3.5 sm:p-5 backdrop-blur-xl"
             >
               {/* Row Topic Bar */}
-              <div className="flex items-center justify-between pb-3 mb-3 border-b border-white/5 text-xs">
+              <div className="flex items-center justify-between pb-2.5 sm:pb-3 mb-2.5 sm:mb-3 border-b border-white/5 text-xs">
                 <div className="flex items-center gap-2">
-                  <span className="font-mono font-bold text-blue-400 bg-blue-500/10 px-2 py-0.5 rounded-md border border-blue-500/20 text-[11px]">
+                  <span className="font-mono font-bold text-blue-400 bg-blue-500/10 px-2 py-0.5 rounded-md border border-blue-500/20 text-[10px] sm:text-[11px]">
                     {item.number}
                   </span>
-                  <span className="font-bold text-slate-300 text-xs sm:text-sm">
+                  <span className="font-bold text-slate-200 text-xs sm:text-sm">
                     {item.question}
                   </span>
                 </div>
-                <div className="text-[11px] font-mono text-slate-500 hidden sm:block">
-                  PAIRED COMPARISON {item.number}
+                <div className="text-[10px] sm:text-[11px] font-mono text-slate-500">
+                  <span className="hidden sm:inline">مقایسه شماره </span>
+                  <span>{item.number}</span>
                 </div>
               </div>
 
-              {/* Desktop & Tablet: Side by Side with VS Center */}
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 sm:gap-4 items-stretch">
+              {/* Grid: Stacks on mobile, Side-by-Side on Desktop */}
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-2.5 sm:gap-4 items-stretch">
                 
                 {/* 1. بدون هوشران (Left State) */}
-                <div className="lg:col-span-5 p-4 sm:p-5 rounded-2xl bg-white/[0.02] border border-white/5 flex flex-col justify-between space-y-3 transition-colors group-hover:bg-white/[0.03]">
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between gap-2">
-                      <h4 className="text-sm sm:text-base font-bold text-slate-300">
+                <div className="lg:col-span-5 p-3.5 sm:p-4 xl:p-5 rounded-xl sm:rounded-2xl bg-white/[0.02] border border-white/5 flex flex-col justify-between space-y-2.5 sm:space-y-3 transition-colors group-hover:bg-white/[0.03]">
+                  
+                  {/* Mobile Identifier Pill */}
+                  <div className="flex items-center justify-between lg:hidden pb-1">
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-500/10 text-amber-300/90 border border-amber-500/20">
+                      بدون هوشران (وضعیت آشنا)
+                    </span>
+                    <span className="text-[10px] font-medium text-slate-500">
+                      {item.without.tag}
+                    </span>
+                  </div>
+
+                  <div className="space-y-1.5 sm:space-y-2">
+                    <div className="flex flex-wrap sm:flex-nowrap items-start sm:items-center justify-between gap-1.5 sm:gap-2">
+                      <h4 className="text-xs sm:text-sm xl:text-base font-bold text-slate-300">
                         {item.without.headline}
                       </h4>
-                      <span className="text-[11px] font-medium px-2 py-0.5 rounded-md bg-amber-500/10 text-amber-300/90 border border-amber-500/20 shrink-0">
+                      <span className="hidden lg:inline-block text-[11px] font-medium px-2 py-0.5 rounded-md bg-amber-500/10 text-amber-300/90 border border-amber-500/20 shrink-0">
                         {item.without.tag}
                       </span>
                     </div>
@@ -244,15 +271,15 @@ export const VisualComparisonSection: React.FC<VisualComparisonSectionProps> = (
 
                   {/* Flow Steps for Pill 2 */}
                   {item.without.flow && (
-                    <div className="pt-2 border-t border-white/5">
-                      <div className="flex flex-wrap items-center gap-1.5 text-[11px] text-slate-400 font-mono" dir="ltr">
+                    <div className="pt-2 border-t border-white/5 overflow-hidden">
+                      <div className="flex flex-wrap items-center gap-1 text-[10px] sm:text-[11px] text-slate-400 font-mono" dir="ltr">
                         {item.without.flow.map((step, sIdx) => (
                           <React.Fragment key={sIdx}>
-                            <span className="px-2 py-0.5 rounded bg-white/5 border border-white/5 text-slate-300">
+                            <span className="px-1.5 sm:px-2 py-0.5 rounded bg-white/5 border border-white/5 text-slate-300 whitespace-nowrap">
                               {step}
                             </span>
                             {sIdx < item.without.flow!.length - 1 && (
-                              <span className="text-slate-600">→</span>
+                              <span className="text-slate-600 text-[10px]">→</span>
                             )}
                           </React.Fragment>
                         ))}
@@ -262,27 +289,39 @@ export const VisualComparisonSection: React.FC<VisualComparisonSectionProps> = (
                 </div>
 
                 {/* 2. VS Center Pillar */}
-                <div className="lg:col-span-2 flex items-center justify-center py-1 lg:py-0">
+                <div className="lg:col-span-2 flex items-center justify-center py-0.5 sm:py-1 lg:py-0">
                   <div className="flex lg:flex-col items-center gap-1.5 text-center">
-                    <div className="h-px lg:h-6 w-8 lg:w-px bg-white/10" />
-                    <span className="w-8 h-8 rounded-full bg-slate-800/90 border border-white/10 flex items-center justify-center text-[10px] font-black text-slate-400 shadow-sm">
+                    <div className="h-px lg:h-6 w-8 sm:w-12 lg:w-px bg-white/10" />
+                    <span className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-slate-800/90 border border-white/10 flex items-center justify-center text-[9px] sm:text-[10px] font-black text-slate-400 shadow-sm shrink-0">
                       VS
                     </span>
-                    <div className="h-px lg:h-6 w-8 lg:w-px bg-white/10" />
+                    <div className="h-px lg:h-6 w-8 sm:w-12 lg:w-px bg-white/10" />
                   </div>
                 </div>
 
-                {/* 3. با هوشران (Right State — High Visual Contrast & Vibrancy) */}
-                <div className="lg:col-span-5 p-4 sm:p-5 rounded-2xl bg-gradient-to-br from-blue-950/40 via-slate-900/50 to-indigo-950/30 border border-blue-500/30 flex flex-col justify-between space-y-3 shadow-[0_10px_30px_rgba(0,0,0,0.3)] transition-all group-hover:border-blue-400/50">
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between gap-2">
-                      <div className="flex items-center gap-2">
-                        <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                        <h4 className="text-sm sm:text-base font-black text-white">
+                {/* 3. با هوشران (Right State — High Contrast & Clarity) */}
+                <div className="lg:col-span-5 p-3.5 sm:p-4 xl:p-5 rounded-xl sm:rounded-2xl bg-gradient-to-br from-blue-950/40 via-slate-900/60 to-indigo-950/30 border border-blue-500/30 flex flex-col justify-between space-y-2.5 sm:space-y-3 shadow-[0_10px_30px_rgba(0,0,0,0.3)] transition-all group-hover:border-blue-400/50">
+                  
+                  {/* Mobile Identifier Pill */}
+                  <div className="flex items-center justify-between lg:hidden pb-1">
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-blue-500/20 text-blue-300 border border-blue-400/30 flex items-center gap-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                      با هوشران (وضعیت مطلوب)
+                    </span>
+                    <span className="text-[10px] font-bold text-emerald-400">
+                      {item.withHoushran.tag}
+                    </span>
+                  </div>
+
+                  <div className="space-y-1.5 sm:space-y-2">
+                    <div className="flex flex-wrap sm:flex-nowrap items-start sm:items-center justify-between gap-1.5 sm:gap-2">
+                      <div className="flex items-center gap-1.5">
+                        <CheckCircle2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-400 shrink-0" />
+                        <h4 className="text-xs sm:text-sm xl:text-base font-black text-white">
                           {item.withHoushran.headline}
                         </h4>
                       </div>
-                      <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-md bg-blue-500/20 text-blue-300 border border-blue-400/30 shrink-0">
+                      <span className="hidden lg:inline-block text-[11px] font-bold px-2.5 py-0.5 rounded-md bg-blue-500/20 text-blue-300 border border-blue-400/30 shrink-0">
                         {item.withHoushran.tag}
                       </span>
                     </div>
@@ -294,15 +333,15 @@ export const VisualComparisonSection: React.FC<VisualComparisonSectionProps> = (
 
                   {/* Flow Steps for Pill 2 */}
                   {item.withHoushran.flow && (
-                    <div className="pt-2 border-t border-blue-500/20">
-                      <div className="flex flex-wrap items-center gap-1.5 text-[11px] text-blue-200 font-mono" dir="ltr">
+                    <div className="pt-2 border-t border-blue-500/20 overflow-hidden">
+                      <div className="flex flex-wrap items-center gap-1 text-[10px] sm:text-[11px] text-blue-200 font-mono" dir="ltr">
                         {item.withHoushran.flow.map((step, sIdx) => (
                           <React.Fragment key={sIdx}>
-                            <span className="px-2 py-0.5 rounded bg-blue-600/25 border border-blue-400/30 text-white font-medium shadow-xs">
+                            <span className="px-1.5 sm:px-2 py-0.5 rounded bg-blue-600/30 border border-blue-400/30 text-white font-medium shadow-xs whitespace-nowrap">
                               {step}
                             </span>
                             {sIdx < item.withHoushran.flow!.length - 1 && (
-                              <span className="text-blue-400 font-bold">→</span>
+                              <span className="text-blue-400 font-bold text-[10px]">→</span>
                             )}
                           </React.Fragment>
                         ))}
@@ -312,8 +351,8 @@ export const VisualComparisonSection: React.FC<VisualComparisonSectionProps> = (
 
                   {/* Note for Pill 3 */}
                   {item.withHoushran.note && (
-                    <div className="pt-2 border-t border-blue-500/20 flex items-start gap-2 text-xs text-emerald-300/90 font-medium">
-                      <Zap className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />
+                    <div className="pt-2 border-t border-blue-500/20 flex items-start gap-1.5 text-[11px] sm:text-xs text-emerald-300 font-medium">
+                      <Zap className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-emerald-400 shrink-0 mt-0.5" />
                       <span>{item.withHoushran.note}</span>
                     </div>
                   )}
@@ -329,13 +368,13 @@ export const VisualComparisonSection: React.FC<VisualComparisonSectionProps> = (
       {/* =========================================================================
           4. STATEMENT نهایی — قدرتمند، کوتاه و معمارانه
          ========================================================================= */}
-      <div className="pt-4 max-w-4xl mx-auto text-center space-y-6">
+      <div className="pt-2 sm:pt-4 max-w-4xl mx-auto text-center space-y-4 sm:space-y-6 px-1">
         
-        <div className="space-y-3">
-          <h3 className="text-xl sm:text-2xl lg:text-3xl font-black text-slate-300 leading-tight">
+        <div className="space-y-2 sm:space-y-3">
+          <h3 className="text-lg sm:text-2xl lg:text-3xl font-black text-slate-300 leading-snug">
             مسئله فقط این نیست که AI را بلد باشید.
           </h3>
-          <h3 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white leading-tight">
+          <h3 className="text-xl sm:text-3xl lg:text-4xl font-black text-white leading-snug">
             مسئله این است که آیا سازمان شما می‌داند{' '}
             <span className="bg-clip-text text-transparent bg-gradient-to-l from-blue-400 via-indigo-300 to-white">
               چطور با AI بهتر کار کند؟
@@ -344,8 +383,8 @@ export const VisualComparisonSection: React.FC<VisualComparisonSectionProps> = (
         </div>
 
         {/* Brand Statement Box */}
-        <div className="p-6 sm:p-8 rounded-3xl bg-white/[0.02] border border-white/10 backdrop-blur-2xl max-w-3xl mx-auto shadow-xl">
-          <p className="text-sm sm:text-base text-slate-300 leading-relaxed font-medium">
+        <div className="p-4 sm:p-7 rounded-2xl sm:rounded-3xl bg-white/[0.02] border border-white/10 backdrop-blur-2xl max-w-3xl mx-auto shadow-xl">
+          <p className="text-xs sm:text-sm lg:text-base text-slate-300 leading-relaxed font-medium">
             هدف هوشران این نیست که افراد بیشتری با AI کار کنند؛ <br className="hidden sm:block" />
             <span className="text-white font-bold">
               هدف این است که افراد سازمان شما به شیوه بهتری کار کنند، فکر کنند و تصمیم بگیرند.
@@ -358,21 +397,21 @@ export const VisualComparisonSection: React.FC<VisualComparisonSectionProps> = (
       {/* =========================================================================
           5. جمله کلیدی هوشران (PULL QUOTE / BRAND STATEMENT المان متمایز)
          ========================================================================= */}
-      <div className="max-w-3xl mx-auto">
-        <div className="relative p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-blue-950/40 via-slate-900/60 to-indigo-950/40 border border-blue-500/25 shadow-[0_20px_60px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.15)] overflow-hidden">
+      <div className="max-w-3xl mx-auto px-1">
+        <div className="relative p-4 sm:p-7 rounded-2xl sm:rounded-3xl bg-gradient-to-r from-blue-950/40 via-slate-900/60 to-indigo-950/40 border border-blue-500/25 shadow-[0_20px_60px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.15)] overflow-hidden">
           {/* Subtle Glow */}
-          <div className="absolute top-0 right-0 w-48 h-48 bg-blue-500/10 blur-3xl rounded-full pointer-events-none" />
+          <div className="absolute top-0 right-0 w-36 h-36 sm:w-48 sm:h-48 bg-blue-500/10 blur-3xl rounded-full pointer-events-none" />
           
-          <div className="flex flex-col sm:flex-row items-center gap-5 sm:gap-6 text-center sm:text-right relative z-10">
-            <div className="w-14 h-14 rounded-2xl bg-blue-500/15 border border-blue-400/30 flex items-center justify-center shrink-0 shadow-inner">
-              <Quote className="w-7 h-7 text-blue-300" />
+          <div className="flex flex-col sm:flex-row items-center gap-3.5 sm:gap-6 text-center sm:text-right relative z-10">
+            <div className="w-11 h-11 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-blue-500/15 border border-blue-400/30 flex items-center justify-center shrink-0 shadow-inner">
+              <Quote className="w-5 h-5 sm:w-7 sm:h-7 text-blue-300" />
             </div>
 
-            <div className="space-y-1.5">
-              <div className="text-[11px] font-bold text-blue-400 tracking-wider uppercase font-mono">
+            <div className="space-y-1">
+              <div className="text-[10px] sm:text-[11px] font-bold text-blue-400 tracking-wider uppercase font-mono">
                 HOOSHRAN CRITICAL QUESTION
               </div>
-              <blockquote className="text-lg sm:text-xl lg:text-2xl font-black text-white leading-snug">
+              <blockquote className="text-sm sm:text-lg lg:text-xl font-black text-white leading-relaxed">
                 «وقتی همه‌چیز طبق برنامه پیش نرفت، چطور فکر کنم و تصمیم بگیرم؟»
               </blockquote>
             </div>
@@ -383,19 +422,19 @@ export const VisualComparisonSection: React.FC<VisualComparisonSectionProps> = (
       {/* =========================================================================
           6. CALL TO ACTION — ارزیابی آمادگی سازمان برای AI
          ========================================================================= */}
-      <div className="text-center space-y-5 pt-2 pb-4">
-        <h4 className="text-base sm:text-lg font-bold text-slate-300">
+      <div className="text-center space-y-4 pt-2 pb-2 px-2">
+        <h4 className="text-sm sm:text-base lg:text-lg font-bold text-slate-300">
           ببینید سازمان شما امروز در کدام نقطه قرار دارد.
         </h4>
 
         <div>
           <button
             onClick={handleCtaClick}
-            className="px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-xs sm:text-sm rounded-2xl shadow-[0_12px_36px_rgba(37,99,235,0.4)] hover:shadow-[0_16px_44px_rgba(37,99,235,0.6)] hover:-translate-y-0.5 transition-all inline-flex items-center gap-2.5 group cursor-pointer"
+            className="w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-xs sm:text-sm rounded-2xl shadow-[0_12px_36px_rgba(37,99,235,0.4)] hover:shadow-[0_16px_44px_rgba(37,99,235,0.6)] hover:-translate-y-0.5 transition-all inline-flex items-center justify-center gap-2.5 group cursor-pointer"
           >
-            <BarChart3 className="w-4 h-4 text-blue-200" />
+            <BarChart3 className="w-4 h-4 text-blue-200 shrink-0" />
             <span>ارزیابی آمادگی سازمان برای AI</span>
-            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform shrink-0" />
           </button>
         </div>
       </div>
