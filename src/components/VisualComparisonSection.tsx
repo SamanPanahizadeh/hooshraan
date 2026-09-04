@@ -51,16 +51,16 @@ const COMPARISON_PAIRS: ComparisonPair[] = [
     number: '۰۲',
     question: 'AI کنار کار یا داخل کار؟',
     without: {
-      headline: 'AI یک ابزار جانبی است',
-      subline: 'کار موازی و بریده از زمینه تصمیم‌گیری',
+      headline: 'AI یک ابزار جانبی است.',
+      subline: 'کار موازی و منفک از روند اصلی کار',
       tag: 'AI خارج از Workflow',
-      flow: ['کار روزمره', 'مراجعه به AI', 'خروجی خام', 'ادامه کار'],
+      flow: ['کار', 'AI', 'خروجی', 'ادامه کار'],
     },
     withHoushran: {
-      headline: 'AI بخشی از Workflow است',
-      subline: 'زنجیره متصل از صورت‌مسئله تا اقدام نهایی',
+      headline: 'AI بخشی از Workflow است.',
+      subline: 'پایپ‌لاین پیوسته از مسئله تا تصمیم و اقدام',
       tag: 'AI در Workflow',
-      flow: ['Problem', 'AI Co-Pilot', 'Review', 'Decision', 'Action'],
+      flow: ['Problem', 'AI', 'Review', 'Decision', 'Action'],
     },
   },
   {
@@ -68,13 +68,13 @@ const COMPARISON_PAIRS: ComparisonPair[] = [
     number: '۰۳',
     question: 'جواب گرفتن یا بهتر فکر کردن؟',
     without: {
-      headline: 'AI جواب می‌دهد',
-      subline: 'تولید متن‌های آماده بدون درک بافتار سازمان',
+      headline: 'AI جواب می‌دهد.',
+      subline: 'تکیه بر پاسخ‌های آماده بدون غنابخشی به تفکر',
       tag: 'خروجی نیازمند بررسی',
     },
     withHoushran: {
-      headline: 'کمک به فرایند فکر کردن و تصمیم‌سازی',
-      subline: 'افزایش شفافیت، داوری نقادانه و کاهش سوگیری',
+      headline: 'AI به فرایند فکر کردن و تصمیم‌سازی کمک می‌کند.',
+      subline: 'ارتقای داوری انسانی، گسترش گزینه‌ها و تحلیل نقادانه',
       tag: 'خروجی قابل ارزیابی',
       note: 'AI به جای انسان تصمیم نمی‌گیرد؛ به انسان کمک می‌کند بهتر تصمیم بگیرد.',
     },
@@ -85,13 +85,13 @@ const COMPARISON_PAIRS: ComparisonPair[] = [
     question: 'Prompt یا مهارت؟',
     without: {
       headline: 'دنبال Prompt آماده',
-      subline: 'کپی‌کردن فرمول‌های عمومی که روی داده‌های واقعی شکست می‌خورند',
-      tag: 'وابسته به شانس',
+      subline: 'کپی‌کردن فرمول‌های ایستا بدون درک بافتار سازمان',
+      tag: 'ابزارمحور',
     },
     withHoushran: {
       headline: 'توانایی تعامل حرفه‌ای با AI',
       subline: 'مسئله + زمینه + هدف + محدودیت + ارزیابی',
-      tag: 'ساختاریافته و تکرارپذیر',
+      tag: 'مسئله‌محور',
     },
   },
   {
@@ -99,14 +99,14 @@ const COMPARISON_PAIRS: ComparisonPair[] = [
     number: '۰۵',
     question: 'مهارت فردی یا قابلیت سازمانی؟',
     without: {
-      headline: 'چند نفر بلدند',
-      subline: 'استفاده از AI وابسته به افراد و تجربه‌های پراکنده شخصی است',
+      headline: 'چند نفر بلدند.',
+      subline: 'استفاده از AI وابسته به افراد و تجربه‌های شخصی است.',
       tag: 'وابسته به افراد',
     },
     withHoushran: {
-      headline: 'تیم می‌داند چگونه استفاده کند',
-      subline: 'تبدیل AI به یک قابلیت قابل توسعه در شیوه کار مشترک تیم',
-      tag: 'قابلیت تیمی و پایدار',
+      headline: 'تیم می‌داند چگونه استفاده کند.',
+      subline: 'AI به یک قابلیت قابل توسعه در شیوه کار تیم تبدیل می‌شود.',
+      tag: 'قابل توسعه در تیم',
     },
   },
 ];
@@ -136,11 +136,6 @@ export const VisualComparisonSection: React.FC<VisualComparisonSectionProps> = (
           1. HEADER — شفاف، کنجکاوی‌برانگیز و بدون واژگان ترساننده
          ========================================================================= */}
       <div className="text-center max-w-3xl mx-auto space-y-3 sm:space-y-4 px-2">
-        <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-400/20 text-blue-300 text-[11px] sm:text-xs font-semibold backdrop-blur-md">
-          <Sparkles className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-blue-400 shrink-0" />
-          <span>آینه بلوغ سازمانی</span>
-        </div>
-
         <h2 className="text-xl sm:text-3xl lg:text-4xl xl:text-5xl font-black text-white tracking-tight leading-[1.3] sm:leading-[1.25]">
           سازمان شما در کدام سمت قرار دارد؟
         </h2>
